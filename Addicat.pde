@@ -55,7 +55,6 @@ void draw()
   }
   
   drugLevel.display();
-  if(1==1)
   drawFloor();
 
   //println(last_mil);
