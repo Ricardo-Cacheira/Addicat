@@ -54,8 +54,9 @@ void draw()
     c.update();
   }
   
-  drugLevel.display();  
-  drawFloor();  
+  drugLevel.display();
+  if(1==1)
+  drawFloor();
 
   //println(last_mil);
   //println(p);
