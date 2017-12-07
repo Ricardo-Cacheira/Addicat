@@ -57,13 +57,8 @@ void draw()
   drugLevel.display();
   drawFloor();
 
-  //println(last_mil);
-  //println(p);
-  //println("------------");
-
   c.adjustDisplay();
   player.display();
-  //test_speed();
 
   fps();
  obsManager.display();

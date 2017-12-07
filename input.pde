@@ -3,10 +3,14 @@ void keyPressed()
   if (key == 'd' || key == 'D')
   {
     right = 1;
+    player.faceLeft = false;
+    player.faceRight = true;
   }
   if (key == 'a' || key == 'A')
   {
     left = -1;
+    player.faceRight = false;
+    player.faceLeft = true;
   }
   if (key == ' ')
   {
@@ -42,7 +46,7 @@ void keyReleased()
   {
     up = 0;
   }
-   if (key == 'w' || key == 'W')
+  if (key == 'w' || key == 'W')
   {
     up = 0;
   }
