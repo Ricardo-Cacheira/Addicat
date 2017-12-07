@@ -11,7 +11,9 @@ class Camera
   }
 
   void update() {
+    if(scrollingSpeed < 20)
     scrollingSpeed += multi;
+    
     x += scrollingSpeed;
   }
 
