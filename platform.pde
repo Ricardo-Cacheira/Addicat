@@ -17,33 +17,30 @@ class Platform extends Obstacle {
   void collide(Cat cat) {
     println("Collide");
 
-    float maxX = max(pos.x, cat.position.x - cat.image.width / 2);
-    float maxY = max(pos.y, cat.position.y - cat.image.height / 2);
-    float collisionWidth = min(cat.position.x + cat.image.width / 2, pos.x + size.x) - maxX;
-    float collisionHeight = min(cat.position.y + cat.image.height / 2, pos.y + size.y) - maxY;
+    float maxX = max(pos.x, cat.position.x);
+    float maxY = max(pos.y, cat.position.y);
+    float collisionWidth = min(cat.position.x + cat.size.x, pos.x + size.x) - maxX;
+    float collisionHeight = min(cat.position.y + cat.size.y, pos.y + size.y) - maxY;
 
     if (collisionWidth < collisionHeight) {
-      if (cat.position.x + cat.image.width/2 >= pos.x + size.x) {
+      if (cat.position.x + cat.size.x >= pos.x + size.x) {
         //right collision
         println("Right Collide");
-        drugLevel.lifeTaker=true;
-        cat.position.x = pos.x+size.x+60;
+        cat.position.x = pos.x+size.x;
       } else {
         //left collision
         println("Left Collide");
-        drugLevel.lifeTaker=true;
-        cat.position.x = pos.x-60;
+        cat.position.x = pos.x- cat.size.x;
       }
-    } else if (cat.position.y > pos.y + size.y / 2) {
+    } else if (cat.position.y + cat.size.y >= pos.y + size.y) {
       println("Bottom Collide");
       //bottom collision
-      cat.position.y = pos.y + size.y + cat.image.height/2;
+      cat.position.y = pos.y + size.y;
       cat.velocity.y = 0;
-      drugLevel.lifeTaker=true;
     } else {
       println("Top Collide");
       //top collision
-      cat.position.y = pos.y - cat.image.height/2;
+      cat.position.y = pos.y - cat.size.y;
       cat.velocity.y = 0;
       connected = true;
     }

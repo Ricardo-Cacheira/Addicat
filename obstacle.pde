@@ -36,9 +36,9 @@ abstract class Obstacle
 
   boolean isColliding(Cat cat)
   {
-    return cat.position.x + (cat.image.width/2) > pos.x
-      && cat.position.x  - (cat.image.width/2)< pos.x + (size.x)
-      && cat.position.y + (cat.image.height/2) > pos.y
-      && cat.position.y - (cat.image.height/2) < pos.y + (size.y);
+    return cat.position.x + cat.size.x > pos.x
+      && cat.position.x < pos.x + size.x
+      && cat.position.y + cat.size.y > pos.y
+      && cat.position.y < pos.y + size.y;
   }
 }

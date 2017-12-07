@@ -3,7 +3,6 @@ class Box extends Obstacle {
   Box(PVector pos, PVector size) 
   {
     super(pos, size);
-
   }
 
   void drawObs() {
@@ -15,26 +14,34 @@ class Box extends Obstacle {
   }
 
   void collide(Cat cat) {
+    println("Collide");
 
-    float maxX = max(pos.x, player.position.x - player.image.width / 2);
-    float maxY = max(pos.y, player.position.y - player.image.height / 2);
-    float collisionWidth = min(player.position.x + player.image.width / 2, pos.x + size.x) - maxX;
-    float collisionHeight = min(player.position.y + player.image.height / 2, pos.y + size.y) - maxY;
+    float maxX = max(pos.x, player.position.x);
+    float maxY = max(pos.y, player.position.y);
+    float collisionWidth = min(player.position.x + player.size.x, pos.x + size.x) - maxX;
+    float collisionHeight = min(player.position.y + player.size.y, pos.y + size.y) - maxY;
 
-    if (collisionWidth < collisionHeight) 
-      if (player.position.x + player.image.width/2 >= pos.x + size.x) {
+    if (collisionWidth < collisionHeight) {
+      if (cat.position.x + cat.size.x >= pos.x + size.x) {
         //right collision
-        drugLevel.lifeTaker=true;
-        player.position.x = pos.x+size.x+60;
+        println("Right Collide");
+        cat.position.x = pos.x+size.x;
       } else {
         //left collision
-        drugLevel.lifeTaker=true;
-        player.position.x = pos.x-60;
-      } else if (player.position.y - player.image.height/2 >= pos.y + size.y) {
+        println("Left Collide");
+        cat.position.x = pos.x- cat.size.x;
+      }
+    } else if (cat.position.y > pos.y + size.y) {
+      println("Bottom Collide");
+      //bottom collision
+      cat.position.y = pos.y + size.y;
+      cat.velocity.y = 0;
+    } else {
+      println("Top Collide");
       //top collision
-      player.position.y = pos.y - player.image.height/2;
-      player.velocity.y = 0;
-      drugLevel.lifeTaker=true;
-    } 
+      cat.position.y = pos.y - cat.size.y;
+      cat.velocity.y = 0;
+      connected = true;
+    }
   }
 }

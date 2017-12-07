@@ -5,8 +5,8 @@ class GameManager {
     fps_pos = new PVector(10, 20);
     //direction change sprite so it doesnt mirror it and stays consistent
     PVector vel = new PVector(0, 0);
-    //Cat(String img, float jumpSpeed, float walkSpeed, PVector velocity, float fric)
-    player = new Cat("cat.png", 20, 10, vel, 0.99);
+    //Cat(float jumpSpeed, float walkSpeed, PVector velocity, float fric)
+    player = new Cat(20, 12, vel, 0.99);
     c = new Camera();
     ground =  height - 30;
     gravity = .6;

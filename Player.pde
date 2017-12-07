@@ -1,15 +1,19 @@
 class Cat
 {
-  PImage image;
-  PVector position, velocity;
+  PImage imager, imagel, imagers, imagels;
+  PVector position, velocity, size;
   boolean faceRight, faceLeft;
   float jumpSpeed, walkSpeed, friction, scale = 4;
   //1 - Right, 2 - Left, 3 - Slide Right, 4 - Slide Left,
   int currentDir, newDir, newWidth, newHeight;
 
-  Cat(String img, float jumpSpeed, float walkSpeed, PVector velocity, float fric)
+  Cat(float jumpSpeed, float walkSpeed, PVector velocity, float fric)
   {
-    this.image = loadImage(img);
+    this.imager = loadImage("catr1.png");
+    this.imagel = loadImage("catl1.png");
+    this.imagers = loadImage("catrs.png");
+    this.imagels = loadImage("catls.png");
+    this.size = new PVector(imager.width, imager.height);
     this.position = new PVector(400, height - 100);
     this.faceRight = true;
     currentDir = 0;
@@ -23,51 +27,52 @@ class Cat
 
   void updatePlayer()
   {
+
     walkSpeed += multi;
     velocity.y += gravity;
-    if (down == 1 && (position.y == ground - image.height/2 || connected))
+    if (down == 1 && (position.y == ground - size.y || connected))
       velocity.x = (velocity.x) * friction;
     else
+      if(faceLeft)
+      velocity.x = (walkSpeed * (left + right))/2;
+      else
       velocity.x = walkSpeed * (left + right);
     position.add(velocity);
 
-    if (position.y >= ground - image.height/2) {
-      position.y = ground - image.height/2;
+    if (position.y >= ground - size.y) {
+      position.y = ground - size.y;
       velocity.y = 0;
     }
 
     connected = false;
     obsManager.handleCollision();
 
-    if ((position.y == ground - image.height/2 || connected) && up == -1) {
+    if ((position.y == ground - size.y || connected) && up == -1) {
       velocity.y = -jumpSpeed;
     }
   }
 
   void updateImg()
   {
-    if (faceRight)
-    {
-      image = loadImage("catr1.png");
-      currentDir = 1;
-    }
     if (down == 1 && faceRight)
     {
-      image = loadImage("catrs.png");
-      currentDir = 3;
-    }
-    if (down == 1 && faceLeft)
+      size = new PVector(imagers.width, imagers.height);
+      image(imagers, 0, 0);
+    } else if (faceRight)
     {
-      image = loadImage("catls.png");
-      currentDir = 4;
-    } else if (faceLeft)
-    {
-      image = loadImage("catl1.png");
-      currentDir = 2;
+      size = new PVector(imager.width, imager.height);
+      image(imager, 0, 0);
     }
 
-    newWidth = int(scale * image.width / 30);
-    newHeight = int(scale * image.height / 30);
+    if (down == 1 && faceLeft)
+    {
+      size = new PVector(imagels.width, imagels.height);
+      image(imagels, 0, 0);
+    } else if (faceLeft)
+    {
+      size = new PVector(imagel.width, imagel.height);
+      image(imagel, 0, 0);
+    }
   }
 
 
@@ -76,47 +81,10 @@ class Cat
     pushMatrix();
 
     translate(position.x, position.y);
-
-    // com 1,1 a imagem tem de estar flipada com o outro metodo ele flipa a imagem por nós
-    // ou seja temos de fazer um espelho n espelhado
     scale(1, 1);
-    // We're using direction because a -1 scale flips the image in that direction.
-    //scale(direction,1);
 
-    if (velocity.x > 0)
-    {
-      faceLeft = false;
-      faceRight = true;
-    } else if (velocity.x < -scrollingSpeed)
-    {
-      faceRight = false;
-      faceLeft = true;
-    }
-    imageMode(CENTER);
-    if (faceRight)
-    {
-      newDir = 1;
-    }
-    if (down == 1 && faceRight)
-    {
-      newDir = 3;
-    }
-    if (down == 3 && faceLeft)
-    {
-      newDir = 4;
-    } else if (faceLeft)
-    {
-      newDir = 2;
-    }
-
-    if (newDir != currentDir)
-      updateImg();
-
-    image.resize(newWidth, newHeight);
-    ///fix slide jump
-    image(image, 0, 0);
-    
-    println(image.height);
+    imageMode(CORNER);
+    updateImg();
 
     popMatrix();
   }
