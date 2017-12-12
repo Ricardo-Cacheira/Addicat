@@ -6,14 +6,13 @@ class GameManager {
     //direction change sprite so it doesnt mirror it and stays consistent
     PVector vel = new PVector(0, 0);
     //Cat(float jumpSpeed, float walkSpeed, PVector velocity, float fric)
-    player = new Cat(20, 12, vel, 0.99);
+    player = new Cat(17, 13, vel, 0.99);
     c = new Camera();
     ground =  height - 30;
     gravity = .6;
     p = new PVector(0, 0);
     obsManager = new ObstacleManager(p);
     lastMil = 0;
-    iniFloor();
     gameEnd = false;
     junkieMode = false;
   }

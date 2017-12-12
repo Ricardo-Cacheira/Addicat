@@ -15,7 +15,7 @@ boolean gameEnd, connected, junkieMode;
 void setup()
 {
   //fullScreen();
-  size(1024, 728);
+  size(1024, 728, P2D);
   smooth();
   frameRate(60);
   gm = new GameManager();
@@ -35,9 +35,6 @@ void fps()
 
 void draw()
 {
-
-
-
   background(255);
   fill(#005588);
   //imageMode(CORNER);
@@ -53,13 +50,12 @@ void draw()
     obsManager.update();
     c.update();
   }
-  
-  drugLevel.display();
-  drawFloor();
 
+  rect(0, ground, width, 60);
+  drugLevel.display();
   c.adjustDisplay();
   player.display();
 
   fps();
- obsManager.display();
+  obsManager.display();
 }
