@@ -4,7 +4,7 @@ Camera c;
 ObstacleManager obsManager;
 DrugLevel drugLevel;
 GameManager gm;
-float fps, lastMil, left, right, up, down;
+float fps, lastMil;
 float scrollingSpeed = 6;
 float multi = 0.0001;
 PVector fps_pos, p;
@@ -14,9 +14,8 @@ boolean gameEnd, connected, junkieMode;
 
 void setup()
 {
-  //fullScreen();
-  size(1024, 728, P2D);
-  smooth();
+  fullScreen();
+  //size(1024, 728);
   frameRate(60);
   gm = new GameManager();
   gm.initialize();
@@ -42,7 +41,7 @@ void draw()
 
   if (!gameEnd)
   {
-    player.updatePlayer();
+    player.update();
 
     p.x = c.x;
     p.y = c.y;

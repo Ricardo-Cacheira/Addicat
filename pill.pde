@@ -6,7 +6,7 @@ class Pill extends Obstacle {
   Pill(PVector pos, PVector size) 
   {
     super(pos, size);
-    pillImg = loadImage("pill.png");
+    pillImg = loadImage("peacepill.png");
     collected = false;
   }
 

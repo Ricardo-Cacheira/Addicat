@@ -15,6 +15,7 @@ class GameManager {
     lastMil = 0;
     gameEnd = false;
     junkieMode = false;
+    focused = true;
   }
 
   void gameOver() {
