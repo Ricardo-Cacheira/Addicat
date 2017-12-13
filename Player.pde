@@ -1,9 +1,10 @@
 class Cat
 {
-  PImage imager, imagel, imagers, imagels;
+  PImage image, imager, imagel, imagers, imagels;
+  float left, right, up, down;
   PVector position, velocity, size;
-  boolean faceRight, faceLeft;
-  float jumpSpeed, walkSpeed, friction, scale = 4;
+  boolean faceRight;
+  float jumpSpeed, walkSpeed, friction;
   //1 - Right, 2 - Left, 3 - Slide Right, 4 - Slide Left,
   int currentDir, newDir, newWidth, newHeight;
 
@@ -22,21 +23,28 @@ class Cat
     this.jumpSpeed = jumpSpeed;
     this.walkSpeed = walkSpeed;
     this.friction = fric;
+    
+    updateImg();
+  }
+  
+  void input()
+  {
+    
   }
 
 
-  void updatePlayer()
+  void update()
   {
-
-    walkSpeed += multi;
+    if (scrollingSpeed < 20)
+      walkSpeed += multi;
     velocity.y += gravity;
     if (down == 1 && (position.y == ground - size.y || connected))
       velocity.x = (velocity.x) * friction;
     else
-      if(faceLeft)
-      velocity.x = (walkSpeed * (left + right))/2;
+      if (!faceRight)
+        velocity.x = (walkSpeed * (left + right))/2;
       else
-      velocity.x = walkSpeed * (left + right);
+        velocity.x = walkSpeed * (left + right);
     position.add(velocity);
 
     if (position.y >= ground - size.y) {
@@ -50,29 +58,35 @@ class Cat
     if ((position.y == ground - size.y || connected) && up == -1) {
       velocity.y = -jumpSpeed;
     }
+    updateImg();
   }
 
   void updateImg()
   {
+    if(velocity.x >= 0)
+      faceRight = true;
+    else
+      faceRight = false;
+      
     if (down == 1 && faceRight)
     {
       size = new PVector(imagers.width, imagers.height);
-      image(imagers, 0, 0);
+      image = imagers;
     } else if (faceRight)
     {
       size = new PVector(imager.width, imager.height);
-      image(imager, 0, 0);
+      image = imager;
     }
 
-    if (down == 1 && faceLeft)
+    if (down == 1 && !faceRight)
     {
       size = new PVector(imagels.width, imagels.height);
-      image(imagels, 0, 0);
-    } else if (faceLeft)
+      image = imagels;
+    } else if (!faceRight)
     {
       size = new PVector(imagel.width, imagel.height);
-      image(imagel, 0, 0);
-    }
+      image = imagel;
+    } 
   }
 
 
@@ -84,7 +98,7 @@ class Cat
     scale(1, 1);
 
     imageMode(CORNER);
-    updateImg();
+    image(image, 0, 0);
 
     popMatrix();
   }
