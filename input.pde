@@ -21,6 +21,15 @@ void keyPressed()
   {
     junkieMode = !junkieMode;
   }
+  if (key == 'p' || key == 'P')
+  {
+    gm.restart(); 
+  }
+  //if (key == 'l' || key == 'L')
+  //{
+  //  //lose
+  //  drugLevel.sizex = 0; 
+  //}
 }
 
 void keyReleased()

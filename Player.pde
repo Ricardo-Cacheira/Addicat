@@ -5,8 +5,6 @@ class Cat
   PVector position, velocity, size;
   boolean faceRight;
   float jumpSpeed, walkSpeed, friction;
-  //1 - Right, 2 - Left, 3 - Slide Right, 4 - Slide Left,
-  int currentDir, newDir, newWidth, newHeight;
 
   Cat(float jumpSpeed, float walkSpeed, PVector velocity, float fric)
   {
@@ -17,8 +15,6 @@ class Cat
     this.size = new PVector(imager.width, imager.height);
     this.position = new PVector(400, height - 100);
     this.faceRight = true;
-    currentDir = 0;
-    //direction change sprite so it doesnt mirror it and stays consistent
     this.velocity = velocity;
     this.jumpSpeed = jumpSpeed;
     this.walkSpeed = walkSpeed;

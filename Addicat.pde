@@ -19,6 +19,7 @@ void setup()
   frameRate(60);
   gm = new GameManager();
   gm.initialize();
+  focusGained();
 }
 
 void fps()
