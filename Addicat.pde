@@ -5,21 +5,24 @@ ObstacleManager obsManager;
 DrugLevel drugLevel;
 GameManager gm;
 float fps, lastMil;
-float scrollingSpeed = 6;
-float multi = 0.0001;
+float scrollingSpeed;
+float multi;
 PVector fps_pos, p;
 float gravity = .5;// half a pixel per frame gravity.
-float ground;// Y coordinate of ground for collision
-boolean gameEnd, connected, junkieMode;
+float ground;// Y coordinate of ground for collisions
+boolean gameEnd, gamePause, connected, junkieMode, pushed;
+
+//void settings() {
+//  size(3*displayWidth>>2, 3*displayHeight>>2);
+//}
 
 void setup()
 {
-  fullScreen();
-  //size(1024, 728);
+  //fullScreen(P2D);
+  size(1200, 700);
   frameRate(60);
   gm = new GameManager();
   gm.initialize();
-  focusGained();
 }
 
 void fps()
@@ -40,22 +43,45 @@ void draw()
   //imageMode(CORNER);
   //image(backgroundImage,0,0);
 
-  if (!gameEnd)
+  gm.mousePos = new PVector(mouseX, mouseY);
+
+  if (gamePause)
   {
-    player.update();
+    gm.displayMenu();
+  } else
+  {    
+    if (!gameEnd)
+    {
+      player.update();
 
-    p.x = c.x;
-    p.y = c.y;
+      obsManager.update();
+      c.update();
+      
+      if(player.outOfScreen())
+      gm.restart();
+    }
 
-    obsManager.update();
-    c.update();
+    rect(0, ground, width, 60);
+    drugLevel.display();
+    c.adjustDisplay();
+    player.display();
+    fps();
+    obsManager.display();
+    println(pushed);
   }
+  
+}
 
-  rect(0, ground, width, 60);
-  drugLevel.display();
-  c.adjustDisplay();
-  player.display();
-
-  fps();
-  obsManager.display();
+void mousePressed()
+{
+  if (mouseButton == LEFT)
+  {
+    if (gamePause)
+    {
+      if (gm.get_mousePos().dist(gm.get_bPos()) < gm.get_buttonRadius())
+      {
+        gm.play();
+      }
+    }
+  }
 }

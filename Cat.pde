@@ -19,15 +19,15 @@ class Cat
     this.jumpSpeed = jumpSpeed;
     this.walkSpeed = walkSpeed;
     this.friction = fric;
-    
+    this.right = -3;
+
     updateImg();
   }
   
-  void input()
+  boolean outOfScreen()
   {
-    
+    return position.x + size.x < c.x - width / 2;
   }
-
 
   void update()
   {
@@ -35,35 +35,53 @@ class Cat
       walkSpeed += multi;
     velocity.y += gravity;
     if (down == 1 && (position.y == ground - size.y || connected))
-      velocity.x = (velocity.x) * friction;
+      //velocity.x = (velocity.x) * friction;
+      velocity.x = walkSpeed + right;
     else
       if (!faceRight)
         velocity.x = (walkSpeed * (left + right))/2;
       else
-        velocity.x = walkSpeed * (left + right);
+        velocity.x = walkSpeed + right + left;
+
+
     position.add(velocity);
+
+
+
+
 
     if (position.y >= ground - size.y) {
       position.y = ground - size.y;
       velocity.y = 0;
     }
 
+
     connected = false;
+    pushed=false;
     obsManager.handleCollision();
 
     if ((position.y == ground - size.y || connected) && up == -1) {
       velocity.y = -jumpSpeed;
     }
+
+    if (!pushed)
+    {
+      if (position.x < c.x - width/3)
+        position.x = c.x - width/3;
+      else if (position.x > c.x - width/3 + 300)
+        position.x = c.x - width/3 + 300;
+    }
+
     updateImg();
   }
 
   void updateImg()
   {
-    if(velocity.x >= 0)
+    if (velocity.x >= 0)
       faceRight = true;
     else
       faceRight = false;
-      
+
     if (down == 1 && faceRight)
     {
       size = new PVector(imagers.width, imagers.height);
@@ -82,7 +100,7 @@ class Cat
     {
       size = new PVector(imagel.width, imagel.height);
       image = imagel;
-    } 
+    }
   }
 
 

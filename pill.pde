@@ -13,13 +13,12 @@ class Pill extends Obstacle {
   void drawObs() {
     pushStyle();
     imageMode(CORNER);
-    image(pillImg, 0,0);
+    image(pillImg, 0, 0);
     popStyle();
   }
 
   void collide(Cat Cat) {
-      drugLevel.lifeGiver=true;
-      collected = true;
-      println("Collected");
+    drugLevel.lifeGiver=true;
+    collected = true;
   }
 }

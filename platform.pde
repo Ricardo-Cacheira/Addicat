@@ -15,7 +15,7 @@ class Platform extends Obstacle {
   }
 
   void collide(Cat cat) {
-    println("Collide");
+    //println("Collide");
 
     float maxX = max(pos.x, cat.position.x);
     float maxY = max(pos.y, cat.position.y);
@@ -25,24 +25,21 @@ class Platform extends Obstacle {
     if (collisionWidth < collisionHeight) {
       if (cat.position.x + cat.size.x >= pos.x + size.x) {
         //right collision
-        println("Right Collide");
         cat.position.x = pos.x+size.x;
       } else {
         //left collision
-        println("Left Collide");
         cat.position.x = pos.x- cat.size.x;
       }
     } else if (cat.position.y + cat.size.y >= pos.y + size.y) {
-      println("Bottom Collide");
       //bottom collision
       cat.position.y = pos.y + size.y;
       cat.velocity.y = 0;
     } else {
-      println("Top Collide");
       //top collision
       cat.position.y = pos.y - cat.size.y;
       cat.velocity.y = 0;
       connected = true;
+      pushed = false;
     }
   }
 }
