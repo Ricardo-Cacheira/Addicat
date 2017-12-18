@@ -1,4 +1,4 @@
-// GLOBAL VARIABLES//comment
+// GLOBAL VARIABLES
 Cat player;
 Camera c;
 ObstacleManager obsManager;
