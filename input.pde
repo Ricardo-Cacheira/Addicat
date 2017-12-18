@@ -14,7 +14,7 @@ void keyPressed()
     {
       player.down = 1;
     }
-  }else
+  } else
   {
     if (key == 'r' || key == 'R')
     {
@@ -40,10 +40,24 @@ void keyReleased()
   }
   if (keyCode == UP)
   {
-    player.up = 0;
+    player.up = 1;
   }
   if (keyCode == DOWN)
   {
     player.down = 0;
+  }
+}
+
+void mousePressed()
+{
+  if (mouseButton == LEFT)
+  {
+    if (gamePause)
+    {
+      if (gm.get_mousePos().dist(gm.get_bPos()) < gm.get_buttonRadius())
+      {
+        gm.play();
+      }
+    }
   }
 }

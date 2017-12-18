@@ -1,7 +1,7 @@
 class Cat
 {
-  PImage image, imager, imagel, imagers, imagels;
-  float left, right, up, down;
+  PImage image, imager, imagers;
+  float right, up, down;
   PVector position, velocity, size;
   boolean faceRight;
   float jumpSpeed, walkSpeed, friction;
@@ -9,9 +9,7 @@ class Cat
   Cat(float jumpSpeed, float walkSpeed, PVector velocity, float fric)
   {
     this.imager = loadImage("catr1.png");
-    this.imagel = loadImage("catl1.png");
     this.imagers = loadImage("catrs.png");
-    this.imagels = loadImage("catls.png");
     this.size = new PVector(imager.width, imager.height);
     this.position = new PVector(400, height - 100);
     this.faceRight = true;
@@ -23,7 +21,7 @@ class Cat
 
     updateImg();
   }
-  
+
   boolean outOfScreen()
   {
     return position.x + size.x < c.x - width / 2;
@@ -38,10 +36,7 @@ class Cat
       //velocity.x = (velocity.x) * friction;
       velocity.x = walkSpeed + right;
     else
-      if (!faceRight)
-        velocity.x = (walkSpeed * (left + right))/2;
-      else
-        velocity.x = walkSpeed + right + left;
+      velocity.x = walkSpeed + right;
 
 
     position.add(velocity);
@@ -62,6 +57,9 @@ class Cat
 
     if ((position.y == ground - size.y || connected) && up == -1) {
       velocity.y = -jumpSpeed;
+    } else if (up == 1)
+    {
+      velocity.y += gravity;
     }
 
     if (!pushed)
@@ -90,16 +88,6 @@ class Cat
     {
       size = new PVector(imager.width, imager.height);
       image = imager;
-    }
-
-    if (down == 1 && !faceRight)
-    {
-      size = new PVector(imagels.width, imagels.height);
-      image = imagels;
-    } else if (!faceRight)
-    {
-      size = new PVector(imagel.width, imagel.height);
-      image = imagel;
     }
   }
 

@@ -1,16 +1,18 @@
 class Platform extends Obstacle {  
 
+  PImage platImg;
   Platform(PVector pos, PVector size) 
   {
     super(pos, size);
-    connected = false;
+    platImg = loadImage("platform.png");
+      connected = false;
   }
 
   void drawObs() {
     pushStyle();    
     fill(#841F27);
-    rectMode(CORNER);
-    rect(0, 0, size.x, size.y);
+    imageMode(CORNER);
+    image(platImg, 0, 0);
     popStyle();
   }
 

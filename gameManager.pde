@@ -8,12 +8,12 @@ class GameManager {
   {
     return mousePos;
   }
-  
+
   PVector get_bPos()
   {
     return bPos;
   }
-  
+
   int get_buttonRadius()
   {
     return buttonRadius;
@@ -31,6 +31,7 @@ class GameManager {
   }
 
   void play() {
+    bg = new Background();
     drugLevel=new DrugLevel();
     multi  = 0.0001;
     scrollingSpeed = 10;
@@ -38,14 +39,15 @@ class GameManager {
     //direction change sprite so it doesnt mirror it and stays consistent
     PVector vel = new PVector(0, 0);
     //Cat(float jumpSpeed, float walkSpeed, PVector velocity, float fric)
-    player = new Cat(17, scrollingSpeed, vel, 0.99);
+    player = new Cat(20, scrollingSpeed, vel, 0.99);
     c = new Camera();
     ground =  height - 30;
-    gravity = .7;
+    gravity = .9;
     p = new PVector(0, 0);
-    obsManager = new ObstacleManager(p);
     lastMil = millis();
-    gameEnd = false;
+    obsGenerator = new ObstacleGenerator(int(lastMil));
+    obsManager = new ObstacleManager(p);    
+    dog = new Dog();
     junkieMode = false;
     pushed = false;
     gamePause = false;
@@ -57,7 +59,6 @@ class GameManager {
     textSize(100);
     fill(#FF0000);
     text("You're Sober\nGame Over", 200, height/2-100);
-    gameEnd = true;
   }
 
   void restart()
@@ -69,10 +70,9 @@ class GameManager {
     drugLevel=new DrugLevel();
     fps_pos = new PVector(10, 20);
     PVector vel = new PVector(0, 0);
-    player = new Cat(17, scrollingSpeed, vel, 0.99);
+    player = new Cat(20, scrollingSpeed, vel, 0.99);
     c = new Camera();
     p = new PVector(0, 0);
-    gameEnd = false;
     junkieMode = false;
   }
 

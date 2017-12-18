@@ -1,15 +1,17 @@
 class TrashBin extends Obstacle {
 
+  PImage trashImg;
   TrashBin(PVector pos, PVector size) 
   {
     super(pos, size);
+    trashImg = loadImage("trashbin.png");
   }
 
   void drawObs() {
     pushStyle();
     fill(#878787);
-    rectMode(CORNER);
-    rect(0, 0, size.x, size.y, 40);
+    imageMode(CORNER);
+    image(trashImg, 0, 0);
     popStyle();
   }
 
@@ -38,7 +40,7 @@ class TrashBin extends Obstacle {
       cat.position.y = pos.y - cat.size.y;
       cat.velocity.y = 0;
       connected = true;
-        pushed = false;
+      pushed = false;
     }
   }
 }
