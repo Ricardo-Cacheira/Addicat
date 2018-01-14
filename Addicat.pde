@@ -1,19 +1,5 @@
-// GLOBAL VARIABLES
-Cat player;
-Camera c;
-ObstacleManager obsManager;
-ObstacleGenerator obsGenerator;
-DrugLevel drugLevel;
 GameManager gm;
-Background bg;
-Dog dog;
-float fps, lastMil;
-float scrollingSpeed;
-float multi;
-PVector fps_pos, p;
-float gravity = .5; // half a pixel per frame gravity.
-float ground;// Y coordinate of ground for collisions
-boolean gamePause, connected, junkieMode, pushed;
+Controller controller;
 
 void setup()
 {
@@ -21,18 +7,7 @@ void setup()
   size(1200, 700, P2D);
   frameRate(60);
   gm = new GameManager();
-  gm.initialize();
-}
-
-void fps()
-{
-  fps_pos.x = c.x - width/2 + 20;
-  pushStyle();
-  fill(255);
-  textSize(14);
-  fps = frameRate;
-  text("FPS: " + String.format("%.0f", fps), fps_pos.x, fps_pos.y);
-  popStyle();
+  controller = new Controller();
 }
 
 void draw()
@@ -44,31 +19,30 @@ void draw()
 
   gm.mousePos = new PVector(mouseX, mouseY);
 
-  if (gamePause)
+  if (gm.gamePause)
   {
     gm.displayMenu();
   } else
   {
-    if (!player.outOfScreen() && !drugLevel.outOfBar())
+    if (!gm.gameOver())
     {
-      bg.update();
+      gm.update();
 
-      obsManager.update();
-      dog.update();
-      player.update();
-      c.update();
-
-
-      bg.display();
-      drugLevel.display();
-      c.adjustDisplay();
-      obsManager.display();
-      dog.display();
-      player.display();
-      fps();
-      println(dog.baloonVisible);
-      
+      gm.display();
     } else
-      gm.gameOver();
+    gm.gameOverScreen();
   }
+}
+
+void keyPressed() {
+  controller.keyPressed(key, keyCode);
+}
+
+void keyReleased() {
+  controller.keyReleased(key, keyCode);
+}
+
+void mousePressed()
+{
+  controller.mousePressed();
 }

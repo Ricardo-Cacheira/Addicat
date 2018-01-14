@@ -12,7 +12,8 @@ class Background
     xtl=0;
     xfl=0; 
     xsl=0;
-    FirstLayer = loadImage("firstBackground.png"); 
+    //FirstLayer = loadImage("firstBackground.png"); 
+    FirstLayer = loadImage("NewfirstBackground.png");
     SecondLayer = loadImage("secondBackground.png");
     ThirdLayer = loadImage("thirdBackground.png");
   }
@@ -20,7 +21,7 @@ class Background
   void update()
   {
     // pos 
-    xfl=xfl-scrollingSpeed;
+    xfl=xfl-gm.get_scrollingSpeed();
     xsl=xsl-2;
     xtl=xtl-0;
 

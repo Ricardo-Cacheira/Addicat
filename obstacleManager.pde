@@ -6,9 +6,9 @@ class ObstacleManager
   PVector p;
   int cooldown;
 
-  ObstacleManager(PVector p)
+  ObstacleManager()
   {
-    this.p = p.copy();
+    //this.p = p.copy();
     obstacles= new ArrayList<Obstacle>();
     pills= new ArrayList<Pill>();
   }
@@ -16,10 +16,10 @@ class ObstacleManager
 
   void update() {
 
-    if (millis() >= lastMil + cooldown)
+    if (millis() >= gm.lastMil + cooldown)
     {
-      lastMil += cooldown;
-      obsGenerator.pick();
+      gm.lastMil += cooldown;
+      gm.obsGenerator.pick();
     }
 
 
@@ -47,10 +47,10 @@ class ObstacleManager
   void handleCollision()
   {
     for (Obstacle obstacle : obstacles) {
-      if (obstacle.isColliding(player))
+      if (obstacle.isColliding(gm.player))
       {
-        pushed = true;
-        obstacle.collide(player);
+        gm.player.pushed = true;
+        obstacle.collide(gm.player);
       }
     }
   }

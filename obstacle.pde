@@ -31,7 +31,7 @@ abstract class Obstacle
 
   boolean isDead()
   {
-    return pos.x + size.x < c.x - width / 2 - 200;
+    return pos.x + size.x < gm.c.x - width / 2 - 200;
   }
 
   boolean isColliding(Cat cat)

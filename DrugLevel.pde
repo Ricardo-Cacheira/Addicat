@@ -5,10 +5,12 @@ class DrugLevel {
   float num = 0.2;
   boolean lifeTaker=false, lifeGiver = false;
   PImage bar=loadImage("Bar.png");
+  boolean ov = false;
 
   void display() {
+    
     if (sizex!=0 && !lifeTaker && !lifeGiver) {
-      if (!junkieMode)
+      if (!gm.junkieMode)
         sizex=sizex-num;
       pushStyle();
       CheckStatus(); 
@@ -16,7 +18,7 @@ class DrugLevel {
       image(bar, (width/2)/2, 50);
       popStyle();
     } else if (sizex!=0 && lifeTaker && !lifeGiver) {
-      if (!junkieMode)
+      if (!gm.junkieMode)
         sizex=sizex-5;
       pushStyle();
       CheckStatus();
@@ -25,7 +27,7 @@ class DrugLevel {
       popStyle();
       lifeTaker=false;
     } else if (sizex!=0 && !lifeTaker && lifeGiver) {
-      if (!junkieMode)
+      if (!gm.junkieMode)
         sizex=sizex+50;
       if (sizex > 500)
       {
@@ -67,6 +69,7 @@ class DrugLevel {
       num=0.1;
     } else if (sizex>480 && sizex<500) {//OD
       fill(#E54545);
+      ov = true;
     } else if (sizex<=20) {//Sober
       fill(#E54545);
     }

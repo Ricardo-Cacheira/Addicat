@@ -1,14 +1,15 @@
 class Cat
 {
-  PImage image, imager, imagers;
-  float right, up, down;
+  PImage image, imager, imager2, imagers;
+  float right, up, down, frameCounter= 0, runImg = 1;
   PVector position, velocity, size;
-  boolean faceRight;
+  boolean faceRight, connected, pushed;
   float jumpSpeed, walkSpeed, friction;
 
   Cat(float jumpSpeed, float walkSpeed, PVector velocity, float fric)
   {
     this.imager = loadImage("catr1.png");
+    this.imager2 = loadImage("catr2.png");
     this.imagers = loadImage("catrs.png");
     this.size = new PVector(imager.width, imager.height);
     this.position = new PVector(400, height - 100);
@@ -18,21 +19,23 @@ class Cat
     this.walkSpeed = walkSpeed;
     this.friction = fric;
     this.right = -3;
+    this.connected = false;
+    this.pushed = false;
 
     updateImg();
   }
 
   boolean outOfScreen()
   {
-    return position.x + size.x < c.x - width / 2;
+    return position.x + size.x < gm.c.x - width / 2;
   }
 
   void update()
   {
-    if (scrollingSpeed < 20)
-      walkSpeed += multi;
-    velocity.y += gravity;
-    if (down == 1 && (position.y == ground - size.y || connected))
+    if (gm.get_scrollingSpeed() < 20)
+      gm.increase_walkSpeed(gm.c.multi);
+    velocity.y += gm.get_gravity();
+    if (down == 1 && (position.y == gm.get_ground() - size.y || connected))
       //velocity.x = (velocity.x) * friction;
       velocity.x = walkSpeed + right;
     else
@@ -45,29 +48,29 @@ class Cat
 
 
 
-    if (position.y >= ground - size.y) {
-      position.y = ground - size.y;
+    if (position.y >= gm.get_ground() - size.y) {
+      position.y = gm.get_ground() - size.y;
       velocity.y = 0;
     }
 
 
     connected = false;
     pushed=false;
-    obsManager.handleCollision();
+    gm.obsManager.handleCollision();
 
-    if ((position.y == ground - size.y || connected) && up == -1) {
-      velocity.y = -jumpSpeed;
+    if ((position.y == gm.get_ground() - size.y || connected) && up == -1) {
+      jump();
     } else if (up == 1)
     {
-      velocity.y += gravity;
+      velocity.y += gm.get_gravity();
     }
 
     if (!pushed)
     {
-      if (position.x < c.x - width/3)
-        position.x = c.x - width/3;
-      else if (position.x > c.x - width/3 + 300)
-        position.x = c.x - width/3 + 300;
+      if (position.x < gm.c.x - width/3)
+        position.x = gm.c.x - width/3;
+      else if (position.x > gm.c.x - width/3 + 300)
+        position.x = gm.c.x - width/3 + 300;
     }
 
     updateImg();
@@ -75,20 +78,41 @@ class Cat
 
   void updateImg()
   {
-    if (velocity.x >= 0)
-      faceRight = true;
-    else
-      faceRight = false;
-
     if (down == 1 && faceRight)
     {
       size = new PVector(imagers.width, imagers.height);
       image = imagers;
     } else if (faceRight)
     {
-      size = new PVector(imager.width, imager.height);
-      image = imager;
+      if (frameCounter <= 5)
+        frameCounter++;
+      else
+        if (runImg == 1)
+        {
+          runImg = 2; 
+          frameCounter = 0;
+        } else if (runImg == 2)
+        {
+          runImg = 1;
+          frameCounter = 0;
+        }
+
+
+      if (runImg == 1)
+      {
+        size = new PVector(imager.width, imager.height);
+        image = imager;
+      } else
+      {
+        size = new PVector(imager2.width, imager2.height);
+        image = imager2;
+      }
     }
+  }
+
+  void jump()
+  {
+    velocity.y = -jumpSpeed;
   }
 
 

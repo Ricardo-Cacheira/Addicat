@@ -40,8 +40,8 @@ class Box extends Obstacle {
       //top collision
       cat.position.y = pos.y - cat.size.y;
       cat.velocity.y = 0;
-      connected = true;
-      pushed = false;
+      cat.connected = true;
+      cat.pushed = false;
     }
   }
 }

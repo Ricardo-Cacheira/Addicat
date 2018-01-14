@@ -18,7 +18,7 @@ class Pill extends Obstacle {
   }
 
   void collide(Cat Cat) {
-    drugLevel.lifeGiver=true;
+    gm.drugLevel.lifeGiver=true;
     collected = true;
   }
 }

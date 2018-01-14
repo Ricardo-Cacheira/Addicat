@@ -1,20 +1,20 @@
 class Camera
 {
-  float x;
-  float y;
+  float x, y, multi;
 
 
-  Camera()
+  Camera(float multi)
   {
+    this.multi = multi;
     x = width/2;
     y = height/2;
   }
 
   void update() {
-    if(scrollingSpeed < 20)
-    scrollingSpeed += multi;
-    
-    x += scrollingSpeed;
+    if (gm.get_scrollingSpeed() < 20)
+      gm.increase_scrollingSpeed(gm.multi);
+
+    x += gm.get_scrollingSpeed();
   }
 
   void adjustDisplay() {
