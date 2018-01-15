@@ -8,9 +8,7 @@ class Dog {
   //boolean DogOn=false, baloonVisible=false;
    boolean baloonVisible=false;
 
-  void display(Cat player) {
-    
-    position.x+= player.velocity.x+1.5; //novo codigo
+  void display() {
 
    /* timer();
 
@@ -54,8 +52,9 @@ class Dog {
       && !gm.junkieMode;
   }
 
-  void update() {
+  void update(Cat player) {
     pushMatrix();
+    position.x+= player.velocity.x+1.5; //novo codigo
     translate(position.x, position.y);
     popMatrix();
   }
