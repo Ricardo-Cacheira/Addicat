@@ -150,7 +150,7 @@ class GameManager {
     drugLevel.display();
     c.adjustDisplay();
     obsManager.display();
-    dog.display();
+    dog.display(player);
     player.display();
     hud.fps();
     hud.score();
