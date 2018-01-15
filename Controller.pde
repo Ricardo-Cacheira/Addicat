@@ -2,6 +2,12 @@ class Controller {
 
   void keyPressed(char key, int keyCode)
   {
+
+    if (gm.gamePause)
+    {
+      gm.play();
+    }
+
     if (key == CODED) {
       if (keyCode == RIGHT) 
       {
@@ -25,6 +31,10 @@ class Controller {
       if (key == 'p' || key == 'P')
       {
         gm.restart();
+      }
+      if (key==' ')
+      {
+        gm.switchState();
       }
       //if (key == 'l' || key == 'L')
       //{

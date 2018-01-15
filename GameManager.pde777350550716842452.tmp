@@ -139,7 +139,7 @@ class GameManager {
     bg.update();
 
     obsManager.update();
-    dog.update();
+    dog.update(player);
     player.update();
     c.update();
   }
@@ -150,9 +150,15 @@ class GameManager {
     drugLevel.display();
     c.adjustDisplay();
     obsManager.display();
-    dog.display(player);
+    dog.display();
     player.display();
     hud.fps();
     hud.score();
+  }
+  
+  void switchState()
+  {
+    high = !high;
+    gm.obsManager.restart();
   }
 }
