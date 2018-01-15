@@ -1,15 +1,18 @@
 class Dog {
 
-  PVector position= new PVector(gm.c.x-(width/2)-600, gm.player.position.y/1.277);
+  PVector position= new PVector(gm.c.x-(width/2)-600 /*< - mudar valor*/ , gm.player.position.y/1.277);
   PVector baloonPosition = new PVector(gm.c.x-(width/2)+2, gm.player.position.y/2);
   PImage dog = loadImage("dog.png");
   PImage baloon = loadImage("baloon.png");
   float frameDogOn, frameDogOff;
-  boolean DogOn=false, baloonVisible=false;
+  //boolean DogOn=false, baloonVisible=false;
+   boolean baloonVisible=false;
 
-  void display() {
+  void display(Cat player) {
+    
+    position.x+= player.velocity.x+1.5; //novo codigo
 
-    timer();
+   /* timer();
 
     if (DogOn==true) {
 
@@ -34,7 +37,7 @@ class Dog {
         position.x=gm.c.x-(width/2)-300;
       }
     }
-
+*/
 
     imageMode(CORNER);
     image(dog, position.x, position.y);
@@ -67,7 +70,7 @@ class Dog {
     image(baloon, baloonPosition.x, baloonPosition.y);
   }
 
-  void timer() {
+  /*void timer() {
 
     frameDogOn++;
 
@@ -83,5 +86,5 @@ class Dog {
       DogOn=true;
       baloonVisible= true;
     }
-  }
+  }*/
 }
