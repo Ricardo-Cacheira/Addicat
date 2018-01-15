@@ -30,16 +30,22 @@ void draw()
 
       gm.display();
     } else
-    gm.gameOverScreen();
+      gm.gameOverScreen();
   }
 }
 
 void keyPressed() {
-  controller.keyPressed(key, keyCode);
+  if (!gm.gamePause)
+  {
+    controller.keyPressed(key, keyCode);
+  }
 }
 
 void keyReleased() {
-  controller.keyReleased(key, keyCode);
+  if (!gm.gamePause)
+  {
+    controller.keyReleased(key, keyCode);
+  }
 }
 
 void mousePressed()

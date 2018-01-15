@@ -19,7 +19,10 @@ class ObstacleManager
     if (millis() >= gm.lastMil + cooldown)
     {
       gm.lastMil += cooldown;
-      gm.obsGenerator.pick();
+      if (gm.high)
+        gm.obsGenerator.pickHigh();
+      else
+        gm.obsGenerator.pick();
     }
 
 
@@ -68,6 +71,19 @@ class ObstacleManager
 
     for (Obstacle obstacle : deadObstacles) {
       obstacles.remove(obstacle);
+      pills.remove(obstacle);
+    }
+  }
+
+  void clearObstacles()
+  {
+    for (Obstacle obstacle : obstacles) {
+      deadObstacles.add(obstacle);
+    }
+
+    for (Obstacle obstacle : deadObstacles) {
+      obstacles.remove(obstacle);
+      deadObstacles.remove(obstacle);
       pills.remove(obstacle);
     }
   }

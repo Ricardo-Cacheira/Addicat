@@ -1,7 +1,7 @@
 class Cat
 {
   PImage image, imager, imager2, imagers;
-  float right, up, down, frameCounter= 0, runImg = 1;
+  float right, up, down, previous_down, frameCounter= 0, runImg = 1, imgHeightDifference;
   PVector position, velocity, size;
   boolean faceRight, connected, pushed;
   float jumpSpeed, walkSpeed, friction;
@@ -12,8 +12,11 @@ class Cat
     this.imager2 = loadImage("catr2.png");
     this.imagers = loadImage("catrs.png");
     this.size = new PVector(imager.width, imager.height);
+    this.imgHeightDifference = imager.height - imagers.height;
     this.position = new PVector(400, height - 100);
     this.faceRight = true;
+    this.down = 0;
+    this.previous_down = 0;
     this.velocity = velocity;
     this.jumpSpeed = jumpSpeed;
     this.walkSpeed = walkSpeed;
@@ -32,6 +35,7 @@ class Cat
 
   void update()
   {
+    updateImg();
     if (gm.get_scrollingSpeed() < 20)
       gm.increase_walkSpeed(gm.c.multi);
     velocity.y += gm.get_gravity();
@@ -72,16 +76,18 @@ class Cat
       else if (position.x > gm.c.x - width/3 + 300)
         position.x = gm.c.x - width/3 + 300;
     }
-
-    updateImg();
   }
 
   void updateImg()
   {
     if (down == 1 && faceRight)
     {
+      if (previous_down != 1)
+        position.y = position.y + imgHeightDifference;
+
       size = new PVector(imagers.width, imagers.height);
       image = imagers;
+      previous_down = 1;
     } else if (faceRight)
     {
       if (frameCounter <= 5)
@@ -98,6 +104,9 @@ class Cat
         }
 
 
+      if (previous_down == 1)
+        position.y = position.y - imgHeightDifference;
+
       if (runImg == 1)
       {
         size = new PVector(imager.width, imager.height);
@@ -107,6 +116,8 @@ class Cat
         size = new PVector(imager2.width, imager2.height);
         image = imager2;
       }
+
+      previous_down = 0;
     }
   }
 

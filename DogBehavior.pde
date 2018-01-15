@@ -44,11 +44,11 @@ class Dog {
 
   boolean isColliding(Cat cat)
   {
-
     return cat.position.x + cat.size.x > position.x
       && cat.position.x < position.x + 200
       && cat.position.y + cat.size.y > position.y
-      && cat.position.y < position.y + 200;
+      && cat.position.y < position.y + 200
+      && !gm.junkieMode;
   }
 
   void update() {

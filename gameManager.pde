@@ -155,4 +155,10 @@ class GameManager {
     hud.fps();
     hud.score();
   }
+  
+  void switchState()
+  {
+    high = !high;
+    gm.obsManager.restart();
+  }
 }
