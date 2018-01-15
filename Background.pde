@@ -15,7 +15,8 @@ class Background
     //FirstLayer = loadImage("firstBackground.png"); 
     FirstLayer = loadImage("NewfirstBackground.png");
     SecondLayer = loadImage("secondBackground.png");
-    ThirdLayer = loadImage("thirdBackground.png");
+//    ThirdLayer = loadImage("thirdBackground.png");
+    ThirdLayer = loadImage("Sunset.png");
   }
 
   void update()
