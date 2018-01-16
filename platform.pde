@@ -1,10 +1,10 @@
 class Platform extends Obstacle {  
 
   PImage platImg;
-  Platform(PVector pos, PVector size) 
+  Platform(PVector pos, PVector size, PImage platImg) 
   {
     super(pos, size);
-    platImg = loadImage("platform.png");
+    this.platImg = platImg;
     gm.player.connected = false;
   }
 

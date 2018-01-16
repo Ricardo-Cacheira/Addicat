@@ -7,36 +7,32 @@ class GameManager {
   Background bg;
   Dog dog;
   HUD hud;
-  float lastMil, startMillis;
-  float scrollingSpeed;
-  float multi;
-  float gravity = .5; // half a pixel per frame gravity.
-  float ground;// Y coordinate of ground for collisions
-  boolean gamePause, high, junkieMode;
-  PVector mousePos, bPos;
-  int buttonRadius;
-  PImage play, menuBackground, GOdog, GOov, GOsober;
+  ImagePreloader ImgPreloader;
+  private float lastMil, startMillis;
+  private float scrollingSpeed;
+  private float multi;
+  private float gravity = .5; // half a pixel per frame gravity.
+  private float ground;// Y coordinate of ground for collisions
+  private boolean gamePause, high, junkieMode, flash;
+  private PVector mousePosition, buttonPosition;
+  private int buttonRadius;
 
   GameManager()
   {
+    flash = false;
     gamePause = true;
-    play = loadImage("play.png");
-    menuBackground = loadImage("menu_background.png");
-    menuBackground.resize(width, height);
-    GOdog = loadImage("GOdog.png");
-    GOov = loadImage("GOov.png");
-    GOsober = loadImage("GOsober.png");
-    mousePos = new PVector(mouseX, mouseY);
-    bPos = new PVector(width/2, height/2);
+    ImgPreloader = new ImagePreloader();
+    mousePosition = new PVector(mouseX, mouseY);
+    buttonPosition = new PVector(width/2, height/2);
     buttonRadius = 100;
   }
 
-  PVector get_mousePos()
+  PVector mousePosition()
   {
-    return mousePos;
+    return mousePosition;
   }
 
-  float get_scrollingSpeed()
+  float scrollingSpeed()
   {
     return scrollingSpeed;
   }
@@ -50,36 +46,36 @@ class GameManager {
     player.walkSpeed += multi;
   }
 
-  float get_gravity()
+  float gravity()
   {
     return gravity;
   }
 
-  float get_ground()
+  float ground()
   {
     return ground;
   }
 
-  PVector get_bPos()
+  PVector buttonPosition()
   {
-    return bPos;
+    return buttonPosition;
   }
 
-  int get_buttonRadius()
+  int buttonRadius()
   {
     return buttonRadius;
   }
 
   void play() {
     high = false;
-    bg = new Background();
-    drugLevel=new DrugLevel();
+    bg = new Background(ImgPreloader.FirstLayer, ImgPreloader.SecondLayer, ImgPreloader.ThirdLayer, ImgPreloader.FirstLayerHigh, ImgPreloader.SecondLayerHigh, ImgPreloader.ThirdLayerHigh);
+    drugLevel=new DrugLevel(ImgPreloader.bar);
     scrollingSpeed = 10;
     //direction change sprite so it doesnt mirror it and stays consistent
     PVector vel = new PVector(0, 0);
     //Cat(float jumpSpeed, float walkSpeed, PVector velocity, float fric)
-    player = new Cat(20, scrollingSpeed, vel, 0.99);
     c = new Camera(0.0001);
+    player = new Cat(20, scrollingSpeed, vel, 0.99, ImgPreloader.imager, ImgPreloader.imager2, ImgPreloader.imagers);
     hud = new HUD();
     ground =  height - 30;
     gravity = .9;
@@ -87,7 +83,7 @@ class GameManager {
     startMillis = millis();
     obsGenerator = new ObstacleGenerator(int(lastMil));
     obsManager = new ObstacleManager();    
-    dog = new Dog();
+    dog = new Dog(ImgPreloader.dog, ImgPreloader.baloon);
     junkieMode = false;
     gamePause = false;
   }
@@ -96,11 +92,11 @@ class GameManager {
     pushStyle();
     imageMode(CENTER);
     if (player.outOfScreen() || dog.isColliding(player))
-      image(GOdog, width/2, height/2);
+      image(ImgPreloader.GOdog, width/2, height/2);
     else if (drugLevel.outOfBar())
-      image(GOsober, width/2, height/2);
+      image(ImgPreloader.GOsober, width/2, height/2);
     else if (drugLevel.ov)
-      image(GOov, width/2, height/2);
+      image(ImgPreloader.GOov, width/2, height/2);
     popStyle();
   }
 
@@ -111,12 +107,12 @@ class GameManager {
     obsManager.restart();
     multi  = 0.0001;
     scrollingSpeed = 10;
-    drugLevel=new DrugLevel();
+    drugLevel=new DrugLevel(ImgPreloader.bar);
     PVector vel = new PVector(0, 0);
-    player = new Cat(20, scrollingSpeed, vel, 0.99);
+    player = new Cat(20, scrollingSpeed, vel, 0.99, ImgPreloader.imager, ImgPreloader.imager2, ImgPreloader.imagers);
     c = new Camera(0.0001);
     startMillis = millis();
-    dog = new Dog();
+    dog = new Dog(ImgPreloader.dog, ImgPreloader.baloon);
     junkieMode = false;
   }
 
@@ -124,8 +120,8 @@ class GameManager {
   {
     pushStyle();
     imageMode(CENTER);
-    image(menuBackground, width/2, height/2);
-    image(play, width/2, height/2);
+    image(ImgPreloader.menuBackground, width/2, height/2);
+    image(ImgPreloader.play, width/2, height/2);
     popStyle();
   }
 
@@ -155,10 +151,30 @@ class GameManager {
     hud.fps();
     hud.score();
   }
-  
+
   void switchState()
   {
     high = !high;
-    gm.obsManager.restart();
+    obsManager.restart();
+    flash = true;
+  }
+
+  void flash()
+  {
+    pushStyle();
+    int alpha = 1, delta = 5;
+
+    if (alpha >= 255) { 
+      delta = -delta;
+    }
+
+    if (alpha > 0) { 
+      alpha += delta;
+    } else flash = false;
+
+    fill(255, alpha);
+    rectMode(CENTER);
+    rect(c.x, c.y, width, height);
+    popStyle();
   }
 }

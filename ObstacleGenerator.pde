@@ -6,7 +6,7 @@ class ObstacleGenerator
   int[][] sectionSettings = { {60, 100, 0, 0}, 
     {90, 80, 20, 0}, 
     {120, 60, 40, 0}, 
-    {150, 40, 30, 30}, 
+    {150, 40, 62,60}, 
     {180, 30, 40, 30}, 
     {210, 20, 40, 40}, 
     {240, 10, 40, 50}, 
@@ -94,13 +94,13 @@ class ObstacleGenerator
   void Easy0()
   {
     Obstacle o;
-    o = new Platform(new PVector(gm.c.x + width / 2 + 50, gm.get_ground() - 160), new PVector(300, 50));
+    o = new Platform(new PVector(gm.c.x + width / 2 + 50, gm.ground() - 160), new PVector(300, 50), gm.ImgPreloader.platImg);
     gm.obsManager.obstacles.add(o);
-    o = new Box(new PVector( gm.c.x + width / 2 + 100, gm.get_ground() - 60), new PVector(60, 60));
+    o = new Box(new PVector( gm.c.x + width / 2 + 100, gm.ground() - 60), new PVector(60, 60), gm.ImgPreloader.boxImg);
     gm.obsManager.obstacles.add(o);
-    o = new TrashBin(new PVector( gm.c.x + width / 2 + 260, gm.get_ground() - 255), new PVector(75, 95));
+    o = new TrashBin(new PVector( gm.c.x + width / 2 + 260, gm.ground() - 255), new PVector(75, 95), gm.ImgPreloader.trashImg);
     gm.obsManager.obstacles.add(o);
-    Pill p = new Pill(new PVector( gm.c.x + width / 2 + 400, gm.get_ground() - 500), new PVector(30, 30)); //30*30 only for the peace pill
+    Pill p = new Pill(new PVector( gm.c.x + width / 2 + 400, gm.ground() - 500), new PVector(62,60), gm.ImgPreloader.pillImg); //30*30 only for the peace pill
     o = p;
     gm.obsManager.pills.add(p);  
     gm.obsManager.obstacles.add(o);
@@ -110,13 +110,13 @@ class ObstacleGenerator
   void Easy1()
   {
     Obstacle o;
-    o = new Platform(new PVector( gm.c.x + width / 2 + 50, gm.get_ground() - 200), new PVector(300, 50));
+    o = new Platform(new PVector( gm.c.x + width / 2 + 50, gm.ground() - 200), new PVector(300, 50), gm.ImgPreloader.platImg);
     gm.obsManager.obstacles.add(o);
-    o = new Box(new PVector( gm.c.x + width / 2 + 50, gm.get_ground() - 260), new PVector(60, 60));
+    o = new Box(new PVector( gm.c.x + width / 2 + 50, gm.ground() - 260), new PVector(60, 60), gm.ImgPreloader.boxImg);
     gm.obsManager.obstacles.add(o);
-    o = new Box(new PVector( gm.c.x + width / 2 + 110, gm.get_ground() - 260), new PVector(60, 60));
+    o = new Box(new PVector( gm.c.x + width / 2 + 110, gm.ground() - 260), new PVector(60, 60), gm.ImgPreloader.boxImg);
     gm.obsManager.obstacles.add(o);
-    Pill p = new Pill(new PVector( gm.c.x + width / 2 + 150, gm.get_ground() - 330), new PVector(30, 30)); //30*30 only for the peace pill
+    Pill p = new Pill(new PVector( gm.c.x + width / 2 + 150, gm.ground() - 330), new PVector(62,60), gm.ImgPreloader.pillImg); //30*30 only for the peace pill
     o = p;
     gm.obsManager.pills.add(p);  
     gm.obsManager.obstacles.add(o);
@@ -126,11 +126,11 @@ class ObstacleGenerator
   void Easy2()
   {  
     Obstacle o;
-    o = new Spike(new PVector( gm.c.x + width / 2 + 50, gm.get_ground() - 32), new PVector(62, 32));
+    o = new Spike(new PVector( gm.c.x + width / 2 + 50, gm.ground() - 32), new PVector(62, 32), gm.ImgPreloader.spikeImg);
     gm.obsManager.obstacles.add(o);
-    o = new Spike(new PVector( gm.c.x + width / 2 + 110, gm.get_ground() - 32), new PVector(62, 32));
+    o = new Spike(new PVector( gm.c.x + width / 2 + 110, gm.ground() - 32), new PVector(62, 32), gm.ImgPreloader.spikeImg);
     gm.obsManager.obstacles.add(o);
-    o = new Spike(new PVector( gm.c.x + width / 2 + 170, gm.get_ground() - 32), new PVector(62, 32));
+    o = new Spike(new PVector( gm.c.x + width / 2 + 170, gm.ground() - 32), new PVector(62, 32), gm.ImgPreloader.spikeImg);
     gm.obsManager.obstacles.add(o);
     gm.obsManager.cooldown = 2000;
   }
@@ -138,17 +138,17 @@ class ObstacleGenerator
   void Medium0()
   {
     Obstacle o;
-    o = new Box(new PVector( gm.c.x + width / 2 + 50, gm.get_ground() - 60), new PVector(60, 60));
+    o = new Box(new PVector( gm.c.x + width / 2 + 50, gm.ground() - 60), new PVector(60, 60), gm.ImgPreloader.boxImg);
     gm.obsManager.obstacles.add(o);
-    o = new Platform(new PVector( gm.c.x + width / 2 + 300, gm.get_ground() - 200), new PVector(300, 50));
+    o = new Platform(new PVector( gm.c.x + width / 2 + 300, gm.ground() - 200), new PVector(300, 50), gm.ImgPreloader.platImg);
     gm.obsManager.obstacles.add(o);
-    o = new Box(new PVector( gm.c.x + width / 2 + 300, gm.get_ground() - 260), new PVector(60, 60));
+    o = new Box(new PVector( gm.c.x + width / 2 + 300, gm.ground() - 260), new PVector(60, 60), gm.ImgPreloader.boxImg);
     gm.obsManager.obstacles.add(o);
-    o = new Box(new PVector( gm.c.x + width / 2 + 360, gm.get_ground() - 260), new PVector(60, 60));
+    o = new Box(new PVector( gm.c.x + width / 2 + 360, gm.ground() - 260), new PVector(60, 60), gm.ImgPreloader.boxImg);
     gm.obsManager.obstacles.add(o);
-    o = new Box(new PVector( gm.c.x + width / 2 + 420, gm.get_ground() - 260), new PVector(60, 60));
+    o = new Box(new PVector( gm.c.x + width / 2 + 420, gm.ground() - 260), new PVector(60, 60), gm.ImgPreloader.boxImg);
     gm.obsManager.obstacles.add(o);
-    Pill p = new Pill(new PVector( gm.c.x + width / 2 + 350, gm.get_ground() - 40), new PVector(30, 30)); //30*30 only for the peace pill
+    Pill p = new Pill(new PVector( gm.c.x + width / 2 + 350, gm.ground() - 40), new PVector(62,60), gm.ImgPreloader.pillImg); //30*30 only for the peace pill
     o = p;
     gm.obsManager.pills.add(p);  
     gm.obsManager.obstacles.add(o);
@@ -158,15 +158,15 @@ class ObstacleGenerator
   void Medium1()
   {
     Obstacle o;
-    o = new Platform(new PVector( gm.c.x + width / 2 + 50, gm.get_ground() - 160), new PVector(300, 50));
+    o = new Platform(new PVector( gm.c.x + width / 2 + 50, gm.ground() - 160), new PVector(300, 50), gm.ImgPreloader.platImg);
     gm.obsManager.obstacles.add(o);
-    o = new Platform(new PVector( gm.c.x + width / 2 + 350, gm.get_ground() - 160), new PVector(300, 50));
+    o = new Platform(new PVector( gm.c.x + width / 2 + 350, gm.ground() - 160), new PVector(300, 50), gm.ImgPreloader.platImg);
     gm.obsManager.obstacles.add(o);
-    o = new Box(new PVector( gm.c.x + width / 2 + 100, gm.get_ground() - 60), new PVector(60, 60));
+    o = new Box(new PVector( gm.c.x + width / 2 + 100, gm.ground() - 60), new PVector(60, 60), gm.ImgPreloader.boxImg);
     gm.obsManager.obstacles.add(o);
-    o = new Box(new PVector( gm.c.x + width / 2 + 150, gm.get_ground() - 220), new PVector(60, 60));
+    o = new Box(new PVector( gm.c.x + width / 2 + 150, gm.ground() - 220), new PVector(60, 60), gm.ImgPreloader.boxImg);
     gm.obsManager.obstacles.add(o);
-    o = new Platform(new PVector( gm.c.x + width / 2 + 450, gm.get_ground() - 360), new PVector(300, 50));
+    o = new Platform(new PVector( gm.c.x + width / 2 + 450, gm.ground() - 360), new PVector(300, 50), gm.ImgPreloader.platImg);
     gm.obsManager.obstacles.add(o);
 
     gm.obsManager.cooldown = 2000;
@@ -175,13 +175,13 @@ class ObstacleGenerator
   void Medium2()
   {
     Obstacle o;
-    o = new Platform(new PVector( gm.c.x + width / 2 + 50, gm.get_ground() - 160), new PVector(300, 50));
+    o = new Platform(new PVector( gm.c.x + width / 2 + 50, gm.ground() - 160), new PVector(300, 50), gm.ImgPreloader.platImg);
     gm.obsManager.obstacles.add(o);
-    o = new Box(new PVector( gm.c.x + width / 2 + 50, gm.get_ground() - 60), new PVector(60, 60));
+    o = new Box(new PVector( gm.c.x + width / 2 + 50, gm.ground() - 60), new PVector(60, 60), gm.ImgPreloader.boxImg);
     gm.obsManager.obstacles.add(o);
-    o = new Box(new PVector( gm.c.x + width / 2 + 50, gm.get_ground() - 120), new PVector(60, 60));
+    o = new Box(new PVector( gm.c.x + width / 2 + 50, gm.ground() - 120), new PVector(60, 60), gm.ImgPreloader.boxImg);
     gm.obsManager.obstacles.add(o);
-    o = new Platform(new PVector( gm.c.x + width / 2 + 50, gm.get_ground() - 360), new PVector(300, 50));
+    o = new Platform(new PVector( gm.c.x + width / 2 + 50, gm.ground() - 360), new PVector(300, 50), gm.ImgPreloader.platImg);
     gm.obsManager.obstacles.add(o);
 
     gm.obsManager.cooldown = 2000;
@@ -220,7 +220,7 @@ class ObstacleGenerator
   void High0()
   {
     Obstacle o;
-    Pill p = new Pill(new PVector( gm.c.x + width / 2 + 50, gm.get_ground() - 60), new PVector(30, 30));
+    Pill p = new Pill(new PVector( gm.c.x + width / 2 + 50, gm.ground() - 60), new PVector(62,60), gm.ImgPreloader.pillImg);
     o = p;
     gm.obsManager.pills.add(p);  
     gm.obsManager.obstacles.add(o);
@@ -230,9 +230,9 @@ class ObstacleGenerator
   void High1()
   {
     Obstacle o;
-    o = new Platform(new PVector( gm.c.x + width / 2 + 50, gm.get_ground() - 170), new PVector(300, 50));
+    o = new Platform(new PVector( gm.c.x + width / 2 + 50, gm.ground() - 170), new PVector(300, 50), gm.ImgPreloader.platImg);
     gm.obsManager.obstacles.add(o);
-    Pill p = new Pill(new PVector( gm.c.x + width / 2 + 200, gm.get_ground() - 250), new PVector(30, 30));
+    Pill p = new Pill(new PVector( gm.c.x + width / 2 + 200, gm.ground() - 250), new PVector(62,60), gm.ImgPreloader.pillImg);
     o = p;
     gm.obsManager.pills.add(p);  
     gm.obsManager.obstacles.add(o);
@@ -242,9 +242,9 @@ class ObstacleGenerator
   void High2()
   {
     Obstacle o;
-    o = new Platform(new PVector( gm.c.x + width / 2 + 50, gm.get_ground() - 170), new PVector(300, 50));
+    o = new Platform(new PVector( gm.c.x + width / 2 + 50, gm.ground() - 170), new PVector(300, 50), gm.ImgPreloader.platImg);
     gm.obsManager.obstacles.add(o);
-    Pill p = new Pill(new PVector( gm.c.x + width / 2 + 200, gm.get_ground() - 60), new PVector(30, 30));
+    Pill p = new Pill(new PVector( gm.c.x + width / 2 + 200, gm.ground() - 60), new PVector(62,60), gm.ImgPreloader.pillImg);
     o = p;
     gm.obsManager.pills.add(p);  
     gm.obsManager.obstacles.add(o);

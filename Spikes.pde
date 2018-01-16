@@ -1,18 +1,19 @@
 class Spike extends Obstacle {
 
 
-  PImage spike = loadImage("spike.png");
+  PImage spikeImg;
 
-  Spike(PVector pos, PVector size) 
+  Spike(PVector pos, PVector size, PImage spikeImg) 
   {
     super(pos, size);
+    this.spikeImg = spikeImg;
   }
 
   void drawObs() {
     pushStyle();
     fill(#FF1C1C);
     imageMode(CORNER);
-    image(spike, 0, 0);
+    image(spikeImg, 0, 0);
     popStyle();
   }
 

@@ -17,7 +17,7 @@ void draw()
   //imageMode(CORNER);
   //image(backgroundImage,0,0);
 
-  gm.mousePos = new PVector(mouseX, mouseY);
+  gm.mousePosition = new PVector(mouseX, mouseY);
 
   if (gm.gamePause)
   {
@@ -29,8 +29,11 @@ void draw()
       gm.update();
 
       gm.display();
-    } else
-      gm.gameOverScreen();
+
+    }else
+    {
+      gm.gameOverScreen();    
+    }
   }
 }
 

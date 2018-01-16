@@ -1,14 +1,27 @@
 class DrugLevel {
 
-  float sizex = 250;
-  float max = 500;
-  float num = 0.2;
-  boolean lifeTaker=false, lifeGiver = false;
-  PImage bar=loadImage("Bar.png");
-  boolean ov = false;
+  float sizex;
+  float max;
+  float num;
+  boolean lifeTaker, lifeGiver;
+  PImage bar;
+  boolean ov;
+  int c;
+
+  DrugLevel(PImage bar)
+  {
+    sizex = 250;
+    max = 500;
+    num = 0.2;
+    lifeTaker=false;
+    lifeGiver = false;
+    this.bar=bar;
+    ov = false;
+    c=0;
+  }
 
   void display() {
-    
+
     if (sizex!=0 && !lifeTaker && !lifeGiver) {
       if (!gm.junkieMode)
         sizex=sizex-num;
@@ -56,22 +69,32 @@ class DrugLevel {
 
   void CheckStatus() {
 
-    if (sizex >=100 && sizex <=400) { //normal
-      fill(#71FFDA);
-      num=0.2;
-    } else if (sizex>20 && sizex<100) { //sober warning
-      fill(#FFC44D);
-      num=0.5;
-    } else if (sizex>400 && sizex<=420) { //golden zone
-      fill(#FFF86A);
-    } else if (sizex>420 && sizex<=480) {//OD warning
-      fill(#FFC44D);
-      num=0.1;
-    } else if (sizex>480 && sizex<500) {//OD
-      fill(#E54545);
-      ov = true;
-    } else if (sizex<=20) {//Sober
-      fill(#E54545);
+    colorMode(HSB);
+
+    if (gm.high)
+    {
+      if (c >= 255)  c=0;  
+      else  c+=10;
+      fill(c, 255, 255);
+    } else
+    {
+      if (sizex >=100 && sizex <=400) { //normal
+        fill(#71FFDA);
+        num=0.2;
+      } else if (sizex>20 && sizex<100) { //sober warning
+        fill(#FFC44D);
+        num=0.5;
+      } else if (sizex>400 && sizex<=420) { //golden zone
+        gm.switchState();
+      } else if (sizex>420 && sizex<=480) {//OD warning
+        fill(#FFC44D);
+        num=0.1;
+      } else if (sizex>480 && sizex<500) {//OD
+        fill(#E54545);
+        ov = true;
+      } else if (sizex<=20) {//Sober
+        fill(#E54545);
+      }
     }
   }
 }

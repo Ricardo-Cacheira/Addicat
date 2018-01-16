@@ -2,10 +2,10 @@ class Box extends Obstacle {
 
   PImage boxImg;
 
-  Box(PVector pos, PVector size) 
+  Box(PVector pos, PVector size, PImage boxImg) 
   {
     super(pos, size);
-    boxImg = loadImage("box.png");
+    this.boxImg = boxImg;
   }
 
   void drawObs() {

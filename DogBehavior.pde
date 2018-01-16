@@ -1,41 +1,50 @@
 class Dog {
 
-  PVector position= new PVector(gm.c.x-(width/2)-600 /*< - mudar valor*/ , gm.player.position.y/1.277);
-  PVector baloonPosition = new PVector(gm.c.x-(width/2)+2, gm.player.position.y/2);
-  PImage dog = loadImage("dog.png");
-  PImage baloon = loadImage("baloon.png");
+  PVector position;
+  PVector baloonPosition;
+  PImage dog;
+  PImage baloon;
   float frameDogOn, frameDogOff;
   //boolean DogOn=false, baloonVisible=false;
-   boolean baloonVisible=false;
+  boolean baloonVisible;
+
+  Dog(PImage Dog, PImage baloon)
+  {
+    position= new PVector(gm.c.x-(width/2)-600 /*< - mudar valor*/, gm.player.position.y/1.277);
+    baloonPosition = new PVector(gm.c.x-(width/2)+2, gm.player.position.y/2);
+    this.dog = Dog;
+    this.baloon = baloon;
+    baloonVisible=false;
+  }
 
   void display() {
 
-   /* timer();
-
-    if (DogOn==true) {
-
-      baloonVisible=true;
-
-      if (baloonPosition.x<=position.x+249) {
-        baloonVisible=false;
-      }
-
-      baloon();
-
-      if (position.x<gm.c.x - width/3) {
-        position.x+=gm.get_scrollingSpeed()+3;
-      } else {
-        position.x+=gm.get_scrollingSpeed();
-      }
-    } else if (DogOn==false) {
-
-      position.x+=gm.get_scrollingSpeed()-2;
-      if (position.x<gm.c.x-(width/2)-300) {
-
-        position.x=gm.c.x-(width/2)-300;
-      }
-    }
-*/
+    /* timer();
+     
+     if (DogOn==true) {
+     
+     baloonVisible=true;
+     
+     if (baloonPosition.x<=position.x+249) {
+     baloonVisible=false;
+     }
+     
+     baloon();
+     
+     if (position.x<gm.c.x - width/3) {
+     position.x+=gm.get_scrollingSpeed()+3;
+     } else {
+     position.x+=gm.get_scrollingSpeed();
+     }
+     } else if (DogOn==false) {
+     
+     position.x+=gm.get_scrollingSpeed()-2;
+     if (position.x<gm.c.x-(width/2)-300) {
+     
+     position.x=gm.c.x-(width/2)-300;
+     }
+     }
+     */
 
     imageMode(CORNER);
     image(dog, position.x, position.y);
@@ -70,20 +79,20 @@ class Dog {
   }
 
   /*void timer() {
-
-    frameDogOn++;
-
-    if (DogOn==true) {
-      if (frameDogOn>500) {
-        frameDogOff=random(500, 1000);
-        DogOn=false;
-
-        frameDogOn=0;
-      }
-    } else if (frameDogOn>frameDogOff) {
-      frameDogOn=0;
-      DogOn=true;
-      baloonVisible= true;
-    }
-  }*/
+   
+   frameDogOn++;
+   
+   if (DogOn==true) {
+   if (frameDogOn>500) {
+   frameDogOff=random(500, 1000);
+   DogOn=false;
+   
+   frameDogOn=0;
+   }
+   } else if (frameDogOn>frameDogOff) {
+   frameDogOn=0;
+   DogOn=true;
+   baloonVisible= true;
+   }
+   }*/
 }

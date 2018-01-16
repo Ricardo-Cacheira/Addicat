@@ -3,10 +3,10 @@ class Pill extends Obstacle {
   PImage pillImg;
   boolean collected;
 
-  Pill(PVector pos, PVector size) 
+  Pill(PVector pos, PVector size, PImage pillImg) 
   {
     super(pos, size);
-    pillImg = loadImage("peacepill.png");
+    this.pillImg = pillImg;
     collected = false;
   }
 

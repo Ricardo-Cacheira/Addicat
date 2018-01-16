@@ -1,10 +1,10 @@
 class TrashBin extends Obstacle {
 
   PImage trashImg;
-  TrashBin(PVector pos, PVector size) 
+  TrashBin(PVector pos, PVector size, PImage trashImg) 
   {
     super(pos, size);
-    trashImg = loadImage("trashbin.png");
+    this.trashImg = trashImg;
   }
 
   void drawObs() {

@@ -1,19 +1,27 @@
 class Cat
 {
-  PImage image, imager, imager2, imagers;
+  PImage image, imager, imager2, imagers, imagers0, imagers1, imagers2, imagers3, imagers4, imagers5, imagers6, imagers7, imagers8;
   float right, up, down, previous_down, frameCounter= 0, runImg = 1, imgHeightDifference;
   PVector position, velocity, size;
   boolean faceRight, connected, pushed;
   float jumpSpeed, walkSpeed, friction;
 
-  Cat(float jumpSpeed, float walkSpeed, PVector velocity, float fric)
+  Cat(float jumpSpeed, float walkSpeed, PVector velocity, float fric, PImage imager, PImage imager2, PImage imagers)
   {
-    this.imager = loadImage("catr1.png");
-    this.imager2 = loadImage("catr2.png");
-    this.imagers = loadImage("catrs.png");
+    this.imager = imager;
+    this.imager2 = imager2;
+    this.imagers = imagers;
+    this.imagers1 = imagers1;
+    this.imagers2 = imagers2;
+    this.imagers3 = imagers3;
+    this.imagers4 = imagers4;
+    this.imagers5 = imagers5;
+    this.imagers6 = imagers6;
+    this.imagers7 = imagers7;
+    this.imagers8 = imagers8;
     this.size = new PVector(imager.width, imager.height);
     this.imgHeightDifference = imager.height - imagers.height;
-    this.position = new PVector(400, height - 100);
+    this.position = new PVector(gm.c.x - width/3, height - 100);
     this.faceRight = true;
     this.down = 0;
     this.previous_down = 0;
@@ -36,10 +44,9 @@ class Cat
   void update()
   {
     updateImg();
-    if (gm.get_scrollingSpeed() < 20)
-      gm.increase_walkSpeed(gm.c.multi);
-    velocity.y += gm.get_gravity();
-    if (down == 1 && (position.y == gm.get_ground() - size.y || connected))
+    walkSpeed = gm.scrollingSpeed();
+    velocity.y += gm.gravity();
+    if (down == 1 && (position.y == gm.ground() - size.y || connected))
       //velocity.x = (velocity.x) * friction;
       velocity.x = walkSpeed + right;
     else
@@ -52,8 +59,8 @@ class Cat
 
 
 
-    if (position.y >= gm.get_ground() - size.y) {
-      position.y = gm.get_ground() - size.y;
+    if (position.y >= gm.ground() - size.y) {
+      position.y = gm.ground() - size.y;
       velocity.y = 0;
     }
 
@@ -62,11 +69,11 @@ class Cat
     pushed=false;
     gm.obsManager.handleCollision();
 
-    if ((position.y == gm.get_ground() - size.y || connected) && up == -1) {
+    if ((position.y == gm.ground() - size.y || connected) && up == -1) {
       jump();
     } else if (up == 1)
     {
-      velocity.y += gm.get_gravity();
+      velocity.y += gm.gravity();
     }
 
     if (!pushed)

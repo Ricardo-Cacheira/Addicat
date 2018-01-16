@@ -11,10 +11,10 @@ class Camera
   }
 
   void update() {
-    if (gm.get_scrollingSpeed() < 20)
+    if (gm.scrollingSpeed() < 20)
       gm.increase_scrollingSpeed(gm.multi);
 
-    x += gm.get_scrollingSpeed();
+    x += gm.scrollingSpeed();
   }
 
   void adjustDisplay() {

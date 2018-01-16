@@ -48,7 +48,7 @@ class Controller {
   {
     if (keyCode == RIGHT)
     {
-      gm.player.right = -3;
+      gm.player.right = 0;
     }
     if (keyCode == UP)
     {
@@ -66,7 +66,7 @@ class Controller {
     {
       if (gm.gamePause)
       {
-        if (gm.get_mousePos().dist(gm.get_bPos()) < gm.get_buttonRadius())
+        if (gm.mousePosition().dist(gm.buttonPosition()) < gm.buttonRadius())
         {
           gm.play();
         }
