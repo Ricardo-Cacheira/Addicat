@@ -6,6 +6,12 @@ class Cat
   private boolean faceRight, connected, pushed, up, down;
   private float jumpSpeed, walkSpeed, friction;
 
+  private float level;
+  private boolean lifeTaker, lifeGiver;
+  private boolean ov;
+  private float num;
+
+
   Cat(float jumpSpeed, float walkSpeed, PVector velocity, float fric, PImage imager, PImage imager2, PImage imagers)
   {
     this.imager = imager;
@@ -25,6 +31,12 @@ class Cat
     this.right = -3;
     this.connected = false;
     this.pushed = false;
+
+    level = 250;
+    lifeTaker=false;
+    lifeGiver = false;
+    ov = false;
+    num = 0.2;
 
     updateImg();
   }
@@ -127,6 +139,43 @@ class Cat
     velocity.y = -jumpSpeed;
   }
 
+  void displayBar(HUD hud, Cat player) {
+
+    if (level!=0 && !lifeTaker && !lifeGiver) {
+      if (!gm.junkieMode)
+        level=level-num;
+      hud.DrugMeter(player);
+    } else if (level!=0 && lifeTaker && !lifeGiver) {
+      if (!gm.junkieMode)
+        level=level-5;
+      hud.DrugMeter(player);
+      lifeTaker=false;
+    } else if (level!=0 && !lifeTaker && lifeGiver) {      
+      if (!gm.junkieMode)
+        level=level+50;
+      if (gm.high && !gm.junkieMode)
+        ov = true;
+
+      if (level > 500)
+      {
+        level = 500;
+      }
+      hud.DrugMeter(player);
+      lifeTaker=false;
+      lifeGiver = false;
+    }
+
+    if (level<=0) {
+      level=0;
+      level=level+0;
+    }
+    //println(lifeTaker);
+  }
+
+  boolean outOfBar()
+  {
+    return level == 0;
+  }
 
   void display()
   {

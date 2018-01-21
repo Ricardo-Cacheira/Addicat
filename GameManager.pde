@@ -8,6 +8,7 @@ class GameManager {
   Dog dog;
   HUD hud;
   ImagePreloader ImgPreloader;
+
   private float lastSpawn, startMillis, startHigh, highTime = 5000;
   private float scrollingSpeed, scrollingSpeedHigh;
   private float multi;
@@ -30,7 +31,7 @@ class GameManager {
     bg = new Background(ImgPreloader.FirstLayer, ImgPreloader.SecondLayer, ImgPreloader.ThirdLayer, ImgPreloader.FirstLayerHigh, ImgPreloader.SecondLayerHigh, ImgPreloader.ThirdLayerHigh);
     scrollingSpeed = 12;
     scrollingSpeedHigh = 5;
-    hud = new HUD();
+
     ground =  height - 30;
     gravity = .9;
     junkieMode = false;
@@ -81,7 +82,8 @@ class GameManager {
     startHigh = 0;
     high = false;
     bg = new Background(ImgPreloader.FirstLayer, ImgPreloader.SecondLayer, ImgPreloader.ThirdLayer, ImgPreloader.FirstLayerHigh, ImgPreloader.SecondLayerHigh, ImgPreloader.ThirdLayerHigh);
-    drugLevel=new DrugLevel(ImgPreloader.bar);
+    //drugLevel=new DrugLevel(ImgPreloader.bar);
+    hud = new HUD(ImgPreloader.bar);
     scrollingSpeed = 12;
     PVector vel = new PVector(0, 0);
     c = new Camera(0.0001);
@@ -99,9 +101,9 @@ class GameManager {
     imageMode(CENTER);
     if (player.outOfScreen() || dog.isColliding(player))
       image(ImgPreloader.GOdog, width/2, height/2);
-    else if (drugLevel.outOfBar())
+    else if (player.outOfBar())
       image(ImgPreloader.GOsober, width/2, height/2);
-    else if (drugLevel.ov)
+    else if (player.ov)
       image(ImgPreloader.GOov, width/2, height/2);
     popStyle();
   }
@@ -113,7 +115,8 @@ class GameManager {
     startHigh = 0;
     high = false;
     bg = new Background(ImgPreloader.FirstLayer, ImgPreloader.SecondLayer, ImgPreloader.ThirdLayer, ImgPreloader.FirstLayerHigh, ImgPreloader.SecondLayerHigh, ImgPreloader.ThirdLayerHigh);
-    drugLevel=new DrugLevel(ImgPreloader.bar);
+    //drugLevel=new DrugLevel(ImgPreloader.bar);
+    hud = new HUD(ImgPreloader.bar);
     scrollingSpeed = 12;
     PVector vel = new PVector(0, 0);
     c = new Camera(0.0001);
@@ -137,7 +140,7 @@ class GameManager {
 
   boolean gameOver()
   {
-    return player.outOfScreen() || drugLevel.outOfBar() || dog.isColliding(player) || drugLevel.ov;
+    return player.outOfScreen() || player.outOfBar() || dog.isColliding(player) || player.ov;
   }
 
   void update()
@@ -159,7 +162,7 @@ class GameManager {
   void display()
   {
     bg.display();
-    drugLevel.display();
+    player.displayBar(hud, player);
     c.adjustDisplay();
     obsManager.display();
     dog.display();
@@ -175,7 +178,7 @@ class GameManager {
     if (high)
       startHigh = millis();
     else
-      drugLevel.level = 200;
+      player.level = 200;
 
     obsManager.restart();
 

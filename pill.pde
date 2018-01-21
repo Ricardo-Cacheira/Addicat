@@ -18,7 +18,7 @@ class Pill extends  SequenceObject {
   }
 
   void collide(Cat Cat) {
-    gm.drugLevel.lifeGiver=true;
+    gm.player.lifeGiver=true;
     collected = true;
   }
 }

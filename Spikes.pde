@@ -28,24 +28,24 @@ class Spike extends  SequenceObject {
     if (collisionWidth < collisionHeight) {
       if (cat.position.x + cat.size.x >= pos.x + size.x) {
         //right collision
-        gm.drugLevel.lifeTaker = true;
+        gm.player.lifeTaker = true;
         gm.player.jump();
         cat.position.x = pos.x+size.x;
       } else {
         //left collision
-        gm.drugLevel.lifeTaker = true;
+        gm.player.lifeTaker = true;
         gm.player.jump();
         cat.position.x = pos.x- cat.size.x;
       }
     } else if (cat.position.y > pos.y + size.y) {
       //bottom collision
-      gm.drugLevel.lifeTaker = true;
+      gm.player.lifeTaker = true;
       gm.player.jump();
       //cat.position.y = pos.y + size.y;
       //cat.velocity.y = 0;
     } else {
       //top collision
-      gm.drugLevel.lifeTaker = true;
+      gm.player.lifeTaker = true;
       gm.player.jump();
       //cat.position.y = pos.y - cat.size.y;
       //cat.velocity.y = 0;
