@@ -1,24 +1,24 @@
 class ObstacleManager
 {
-  ArrayList<Obstacle> obstacles;
-  ArrayList<Obstacle> deadObstacles = new ArrayList<Obstacle>();
-  ArrayList<Pill> pills;
-  PVector p;
-  int cooldown;
+  private ArrayList<SequenceObject> obstacles;
+  private ArrayList<SequenceObject> deadObstacles = new ArrayList<SequenceObject>();
+  private ArrayList<Pill> pills;
+  private PVector p;
+  private int cooldown;
 
   ObstacleManager()
   {
     //this.p = p.copy();
-    obstacles= new ArrayList<Obstacle>();
+    obstacles= new ArrayList<SequenceObject>();
     pills= new ArrayList<Pill>();
   }
 
 
   void update() {
 
-    if (millis() >= gm.lastMil + cooldown)
+    if (gm.c.x +50 >= gm.lastSpawn + cooldown)
     {
-      gm.lastMil += cooldown;
+      gm.lastSpawn += cooldown;
       if (gm.high)
         gm.obsGenerator.pickHigh();
       else
@@ -27,7 +27,7 @@ class ObstacleManager
 
 
 
-    for (Obstacle obstacle : obstacles) {
+    for (SequenceObject obstacle : obstacles) {
       obstacle.update();
 
       if (obstacle.isDead())
@@ -40,7 +40,7 @@ class ObstacleManager
         deadObstacles.add(pill);
     }
 
-    for (Obstacle obstacle : deadObstacles) {
+    for (SequenceObject obstacle : deadObstacles) {
       //println("Remove: " + obstacle);
       obstacles.remove(obstacle);
       pills.remove(obstacle);
@@ -49,7 +49,7 @@ class ObstacleManager
 
   void handleCollision()
   {
-    for (Obstacle obstacle : obstacles) {
+    for (SequenceObject obstacle : obstacles) {
       if (obstacle.isColliding(gm.player))
       {
         gm.player.pushed = true;
@@ -59,32 +59,20 @@ class ObstacleManager
   }
 
   void display() {
-    for (Obstacle obstacle : obstacles)
+    for (SequenceObject obstacle : obstacles)
       obstacle.display();
   }
 
   void restart()
   {
-    for (Obstacle obstacle : obstacles) {
-      deadObstacles.add(obstacle);
-    }
 
-    for (Obstacle obstacle : deadObstacles) {
-      obstacles.remove(obstacle);
-      pills.remove(obstacle);
-    }
+    obstacles.clear();
+    deadObstacles.clear();
   }
 
   void clearObstacles()
   {
-    for (Obstacle obstacle : obstacles) {
-      deadObstacles.add(obstacle);
-    }
-
-    for (Obstacle obstacle : deadObstacles) {
-      obstacles.remove(obstacle);
-      deadObstacles.remove(obstacle);
-      pills.remove(obstacle);
-    }
+    obstacles.clear();
+    deadObstacles.clear();
   }
 }

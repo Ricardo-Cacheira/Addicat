@@ -1,7 +1,7 @@
-class Spike extends Obstacle {
+class Spike extends  SequenceObject {
 
 
-  PImage spikeImg;
+  private PImage spikeImg;
 
   Spike(PVector pos, PVector size, PImage spikeImg) 
   {

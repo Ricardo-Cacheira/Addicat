@@ -1,28 +1,33 @@
 class ImagePreloader
 {
 
-  PImage FirstLayer;
-  PImage SecondLayer;
-  PImage ThirdLayer;
+  private PImage FirstLayer;
+  private PImage SecondLayer;
+  private PImage ThirdLayer;
 
-  PImage FirstLayerHigh;
-  PImage SecondLayerHigh;
-  PImage ThirdLayerHigh;
+  private PImage FirstLayerHigh;
+  private PImage SecondLayerHigh;
+  private PImage ThirdLayerHigh;
 
-  PImage boxImg;
-  PImage pillImg;
-  PImage platImg;
-  PImage spikeImg;
-  PImage trashImg;
+  private PImage boxImg;
+  private PImage pillImg;
+  private PImage platImg;
+  private PImage spikeImg;
+  private PImage trashImg;
 
-  PImage imager, imager2, imagers;
+  private PImage imager, imager2, imagers;
 
-  PImage dog;
-  PImage baloon;
+  private PImage dog0;
+  private PImage dog1;
+  private PImage dog2;
+  private PImage dog3;
 
-  PImage bar;
 
-  PImage play, menuBackground, GOdog, GOov, GOsober;
+  private PImage baloon;
+
+  private PImage bar;
+
+  private PImage play, menuBackground, GOdog, GOov, GOsober;
 
   ImagePreloader()
   {
@@ -46,7 +51,11 @@ class ImagePreloader
     imager2 = loadImage("catr2.png");
     imagers = loadImage("catrs.png");
 
-    dog = loadImage("dog.png");
+    dog0 = loadImage("dog0.png");
+    dog1 = loadImage("dog1.png");
+    dog2 = loadImage("dog2.png");
+    dog3 = loadImage("dog3.png");
+
     baloon = loadImage("baloon.png");
 
     bar=loadImage("Bar.png");

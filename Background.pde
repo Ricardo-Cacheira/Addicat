@@ -1,16 +1,16 @@
 class Background
 {
-  PImage FirstLayer;
-  PImage SecondLayer;
-  PImage ThirdLayer;
+  private PImage FirstLayer;
+  private PImage SecondLayer;
+  private PImage ThirdLayer;
 
-  PImage FirstLayerHigh;
-  PImage SecondLayerHigh;
-  PImage ThirdLayerHigh;
+  private PImage FirstLayerHigh;
+  private PImage SecondLayerHigh;
+  private PImage ThirdLayerHigh;
 
-  float xtl;
-  float xfl; 
-  float xsl;
+  private float xtl;
+  private float xfl; 
+  private float xsl;
 
   Background(PImage FirstLayer, PImage SecondLayer, PImage ThirdLayer, PImage FirstLayerHigh, PImage SecondLayerHigh, PImage ThirdLayerHigh)
   {

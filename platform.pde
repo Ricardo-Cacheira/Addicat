@@ -1,6 +1,6 @@
-class Platform extends Obstacle {  
+class Platform extends  SequenceObject {  
 
-  PImage platImg;
+  private PImage platImg;
   Platform(PVector pos, PVector size, PImage platImg) 
   {
     super(pos, size);

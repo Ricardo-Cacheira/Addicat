@@ -1,6 +1,7 @@
-class TrashBin extends Obstacle {
+class TrashBin extends SequenceObject {
 
-  PImage trashImg;
+  private PImage trashImg;
+
   TrashBin(PVector pos, PVector size, PImage trashImg) 
   {
     super(pos, size);

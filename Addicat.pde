@@ -1,13 +1,17 @@
+import processing.sound.*;
 GameManager gm;
 Controller controller;
+SoundFile song;
 
 void setup()
 {
   //fullScreen(P2D);
   size(1200, 700, P2D);
   frameRate(60);
-  gm = new GameManager();
+  song = new SoundFile(this, "cat-song.wav");
   controller = new Controller();
+
+  gm = new GameManager();
 }
 
 void draw()
@@ -16,8 +20,7 @@ void draw()
   fill(#005588);
   //imageMode(CORNER);
   //image(backgroundImage,0,0);
-
-  gm.mousePosition = new PVector(mouseX, mouseY);
+  gm.mousePosition();
 
   if (gm.gamePause)
   {
@@ -29,10 +32,9 @@ void draw()
       gm.update();
 
       gm.display();
-
-    }else
+    } else
     {
-      gm.gameOverScreen();    
+      gm.gameOverScreen();
     }
   }
 }
@@ -41,6 +43,9 @@ void keyPressed() {
   if (!gm.gamePause)
   {
     controller.keyPressed(key, keyCode);
+  } else
+  {
+    gm.play();
   }
 }
 

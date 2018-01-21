@@ -1,16 +1,16 @@
 class DrugLevel {
 
-  float sizex;
-  float max;
-  float num;
-  boolean lifeTaker, lifeGiver;
-  PImage bar;
-  boolean ov;
-  int c;
+  private float level;
+  private float max;
+  private float num;
+  private boolean lifeTaker, lifeGiver;
+  private PImage bar;
+  private boolean ov;
+  private int c;
 
   DrugLevel(PImage bar)
   {
-    sizex = 250;
+    level = 250;
     max = 500;
     num = 0.2;
     lifeTaker=false;
@@ -22,49 +22,52 @@ class DrugLevel {
 
   void display() {
 
-    if (sizex!=0 && !lifeTaker && !lifeGiver) {
+    if (level!=0 && !lifeTaker && !lifeGiver) {
       if (!gm.junkieMode)
-        sizex=sizex-num;
+        level=level-num;
       pushStyle();
       CheckStatus(); 
-      rect((width/2)/2, 50, sizex, 45);
+      rect((width/2)/2, 50, level, 45);
       image(bar, (width/2)/2, 50);
       popStyle();
-    } else if (sizex!=0 && lifeTaker && !lifeGiver) {
+    } else if (level!=0 && lifeTaker && !lifeGiver) {
       if (!gm.junkieMode)
-        sizex=sizex-5;
+        level=level-5;
       pushStyle();
       CheckStatus();
-      rect((width/2)/2, 50, sizex, 45);
+      rect((width/2)/2, 50, level, 45);
       image(bar, (width/2)/2, 50);
       popStyle();
       lifeTaker=false;
-    } else if (sizex!=0 && !lifeTaker && lifeGiver) {
+    } else if (level!=0 && !lifeTaker && lifeGiver) {      
       if (!gm.junkieMode)
-        sizex=sizex+50;
-      if (sizex > 500)
+        level=level+50;
+      if (gm.high && !gm.junkieMode)
+        ov = true;
+
+      if (level > 500)
       {
-        sizex = 500;
+        level = 500;
       }
       pushStyle();
       CheckStatus();
-      rect((width/2)/2, 50, sizex, 45);
+      rect((width/2)/2, 50, level, 45);
       image(bar, (width/2)/2, 50);
       popStyle();
       lifeTaker=false;
       lifeGiver = false;
     }
 
-    if (sizex<=0) {
-      sizex=0;
-      sizex=sizex+0;
+    if (level<=0) {
+      level=0;
+      level=level+0;
     }
     //println(lifeTaker);
   }
 
   boolean outOfBar()
   {
-    return sizex == 0;
+    return level == 0;
   }
 
   void CheckStatus() {
@@ -78,21 +81,18 @@ class DrugLevel {
       fill(c, 255, 255);
     } else
     {
-      if (sizex >=100 && sizex <=400) { //normal
+      if (level >=100 && level <=400) { //normal
         fill(#71FFDA);
         num=0.2;
-      } else if (sizex>20 && sizex<100) { //sober warning
+      } else if (level>20 && level<100) { //sober warning
         fill(#FFC44D);
         num=0.5;
-      } else if (sizex>400 && sizex<=420) { //golden zone
+      } else if (level>425 && level<=450) { //golden zone
         gm.switchState();
-      } else if (sizex>420 && sizex<=480) {//OD warning
-        fill(#FFC44D);
-        num=0.1;
-      } else if (sizex>480 && sizex<500) {//OD
+      } else if (level>450) {//OD
         fill(#E54545);
         ov = true;
-      } else if (sizex<=20) {//Sober
+      } else if (level<=50) {//Sober
         fill(#E54545);
       }
     }

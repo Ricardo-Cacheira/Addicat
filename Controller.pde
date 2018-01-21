@@ -3,24 +3,19 @@ class Controller {
   void keyPressed(char key, int keyCode)
   {
 
-    if (gm.gamePause)
-    {
-      gm.play();
-    }
-
     if (key == CODED) {
-      if (keyCode == RIGHT) 
-      {
-        gm.player.right = 3;
-      }
+      //if (keyCode == RIGHT) 
+      //{
+      //  gm.player.right = 3;
+      //}
       if (keyCode == UP)
       {
-        if (gm.player.down != 1)
-          gm.player.up = -1;
+        if (!gm.player.down)
+          gm.player.up = true;
       }
       if (keyCode == DOWN)
       {
-        gm.player.down = 1;
+        gm.player.down = true;
       }
     } else
     {
@@ -52,11 +47,11 @@ class Controller {
     }
     if (keyCode == UP)
     {
-      gm.player.up = 1;
+      gm.player.up = false;
     }
     if (keyCode == DOWN)
     {
-      gm.player.down = 0;
+      gm.player.down = false;
     }
   }
 

@@ -1,6 +1,6 @@
-class Box extends Obstacle {
+class Box extends  SequenceObject {
 
-  PImage boxImg;
+  private PImage boxImg;
 
   Box(PVector pos, PVector size, PImage boxImg) 
   {

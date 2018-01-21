@@ -1,11 +1,11 @@
-abstract class Obstacle
+abstract class SequenceObject
 {
-  PVector pos;
-  PVector size;
-  boolean collision;
+  protected PVector pos;
+  protected PVector size;
+  protected boolean collision;
 
 
-  Obstacle(PVector pos, PVector size)
+  SequenceObject(PVector pos, PVector size)
   {
     this.pos = pos.copy();
     this.size = size.copy();

@@ -1,6 +1,6 @@
 class Camera
 {
-  float x, y, multi;
+  private float x, y, multi;
 
 
   Camera(float multi)
@@ -14,7 +14,10 @@ class Camera
     if (gm.scrollingSpeed() < 20)
       gm.increase_scrollingSpeed(gm.multi);
 
-    x += gm.scrollingSpeed();
+    if (gm.high)
+      x += gm.scrollingSpeed()+ gm.scrollingSpeedHigh;
+    else
+      x += gm.scrollingSpeed();
   }
 
   void adjustDisplay() {

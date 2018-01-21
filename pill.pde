@@ -1,7 +1,7 @@
-class Pill extends Obstacle {
+class Pill extends  SequenceObject {
 
-  PImage pillImg;
-  boolean collected;
+  private PImage pillImg;
+  private boolean collected;
 
   Pill(PVector pos, PVector size, PImage pillImg) 
   {
