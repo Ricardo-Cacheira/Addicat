@@ -162,7 +162,7 @@ class GameManager {
   void display()
   {
     bg.display();
-    player.displayBar(hud, player);
+    hud.displayBar(hud, player);
     c.adjustDisplay();
     obsManager.display();
     dog.display();

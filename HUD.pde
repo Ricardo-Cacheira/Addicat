@@ -9,6 +9,11 @@ class HUD
 
 
 
+  private float num;
+
+
+
+
   HUD(PImage bar)
   {
     fps_pos = new PVector(width - 50, 20);
@@ -16,6 +21,9 @@ class HUD
     this.arialBold = createFont("Arial Bold", 30);
     this.bar = bar;
     c=0;
+
+
+    num = 0.2;
   }
 
   void fps()
@@ -44,13 +52,13 @@ class HUD
   void DrugMeter(Cat player) {
 
     pushStyle();
-    CheckStatus(player); 
+    CheckStatus(player, player.level); 
     rect((width/2)/2, 50, player.level, 45);
     image(bar, (width/2)/2, 50);
     popStyle();
   }
 
-  void CheckStatus(Cat player) {
+  void CheckStatus(Cat player, float level) {
 
 
     colorMode(HSB);
@@ -62,20 +70,50 @@ class HUD
       fill(c, 255, 255);
     } else
     {
-      if (player.level >=100 && player.level <=400) { //normal
+      if (level >=100 && level <=400) { //normal
         fill(#71FFDA);
-        player.num=0.2;
-      } else if (player.level>20 && player.level<100) { //sober warning
+        num=0.2;
+      } else if (level>20 && level<100) { //sober warning
         fill(#FFC44D);
-        player.num=0.5;
-      } else if (player.level>425 && player.level<=450) { //golden zone
+        num=0.5;
+      } else if (level>425 && level<=450) { //golden zone
         gm.switchState();
-      } else if (player.level>450) {//OD
+      } else if (level>450) {//OD
         fill(#E54545);
         player.ov = true;
-      } else if (player.level<=50) {//Sober
+      } else if (level<=50) {//Sober
         fill(#E54545);
       }
     }
+  }
+
+
+  void displayBar(HUD hud, Cat player) {
+
+    if (player.level!=0 && !player.lifeTaker && !player.lifeGiver) {
+      if (!gm.junkieMode)
+        player.level=player.level-num;
+      hud.DrugMeter(player);
+    } else if (player.level!=0 && player.lifeTaker && !player.lifeGiver) {
+      if (!gm.junkieMode)
+        player.level=player.level-5;
+      hud.DrugMeter(player);
+      player.lifeTaker=false;
+    } else if (player.level!=0 && !player.lifeTaker && player.lifeGiver) {      
+      if (!gm.junkieMode)
+        player.level=player.level+50;
+      if (gm.high && !gm.junkieMode)
+        player.ov = true;
+
+      if (player.level > 500)
+      {
+        player.level = 500;
+      }
+      hud.DrugMeter(player);
+      player.lifeTaker=false;
+      player.lifeGiver = false;
+    }
+
+    //println(lifeTaker);
   }
 }
